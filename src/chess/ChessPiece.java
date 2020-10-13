@@ -3,7 +3,7 @@ package chess;
 /**
  * 
  * @author Kaushal Patel
- *
+ * @author John Hoban
  */
 
 public abstract class ChessPiece {
@@ -51,13 +51,11 @@ public abstract class ChessPiece {
 	
 	/**
 	 * Abstract method to be implemented by each subclass to define the movement of a certain type of piece.
-	 * @param initialX
-	 * @param initialY
 	 * @param newX
 	 * @param newY
 	 * @return Returns a boolean value based on if the user has made a valid move
 	 */
-	public abstract boolean move(int initialX, int initialY, int newX, int newY);
+	public abstract boolean move(int newX, int newY);
 }
 
 class Rook extends ChessPiece{
@@ -73,15 +71,72 @@ class Rook extends ChessPiece{
 		this.team=team;
 	}
 	
-	public boolean move(int initialX, int initialY, int newX, int newY) {
+	public boolean move(int newX, int newY) {
 		//rooks can only move in a straight line horizontally or vertically
-		if(initialX!=newX && initialY!=newY) {
+		if(this.row!=newX && this.column!=newY) {
 			return false;
 		}
-		if(initialY==newY && (initialX==newX || newX<1 || newX>8)) {
+		if(this.column==newY && (this.row==newX || newX<1 || newX>8)) {
 			return false;
 		}
-		if(initialX==newX && (initialY==newY || newY<1 || newY>8)) {
+		if(this.row==newX && (this.column==newY || newY<1 || newY>8)) {
+			return false;
+		}
+		this.row=newX;
+		this.column=newY;
+		return true;
+	}
+}
+
+class Bishop extends ChessPiece{
+	/**
+	 * Constructor for Bishop
+	 * @param row
+	 * @param column
+	 * @param team
+	 */
+	public Bishop(int row, int column, int team) {
+		this.row=row;
+		this.column=column;
+		this.team=team;
+	}
+	
+	public boolean move(int newX, int newY) {
+		//bishops can only move diagonally
+		if((this.row==newX || newX<1 || newX>8) && (this.column==newY || newY<1 || newY>8) && Math.abs(this.row-newX)!=Math.abs(this.column-newY)) {
+			return false;
+		}
+		this.row=newX;
+		this.column=newY;
+		return true;
+	}
+}
+
+class Queen extends ChessPiece{
+	/**
+	 * Constructor for Queen
+	 * @param row
+	 * @param column
+	 * @param team
+	 */
+	public Queen(int row, int column, int team) {
+		this.row=row;
+		this.column=column;
+		this.team=team;
+	}
+	
+	public boolean move(int newX, int newY) {
+		//queens can move in a straight line or diagonally
+		//moving rows
+		if(this.column==newY && (this.row==newX || newX<1 || newX>8)) {
+			return false;
+		}
+		//moving columns
+		if(this.row==newX && (this.column==newY || newY<1 || newY>8)) {
+			return false;
+		}
+		//moving diagonally
+		if((this.row==newX || newX<1 || newX>8) && (this.column==newY || newY<1 || newY>8) && Math.abs(this.row-newX)!=Math.abs(this.column-newY)) {
 			return false;
 		}
 		this.row=newX;
