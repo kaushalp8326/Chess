@@ -73,13 +73,7 @@ class Rook extends ChessPiece{
 	
 	public boolean move(int newX, int newY) {
 		//rooks can only move in a straight line horizontally or vertically
-		if(this.row!=newX && this.column!=newY) {
-			return false;
-		}
-		if(this.column==newY && (this.row==newX || newX<1 || newX>8)) {
-			return false;
-		}
-		if(this.row==newX && (this.column==newY || newY<1 || newY>8)) {
+		if((this.row==newX && this.column==newY) || (this.row!=newX && this.column!=newY) || newX<1 || newX>8 || newY<1 || newY>8) {
 			return false;
 		}
 		this.row=newX;
@@ -103,7 +97,7 @@ class Bishop extends ChessPiece{
 	
 	public boolean move(int newX, int newY) {
 		//bishops can only move diagonally
-		if((this.row==newX || newX<1 || newX>8) && (this.column==newY || newY<1 || newY>8) && Math.abs(this.row-newX)!=Math.abs(this.column-newY)) {
+		if((this.row==newX && this.column==newY) || newX<1 || newX>8 || newY<1 || newY>8 || Math.abs(this.row-newX)!=Math.abs(this.column-newY)) {
 			return false;
 		}
 		this.row=newX;
@@ -126,17 +120,35 @@ class Queen extends ChessPiece{
 	}
 	
 	public boolean move(int newX, int newY) {
-		//queens can move in a straight line or diagonally
-		//moving rows
-		if(this.column==newY && (this.row==newX || newX<1 || newX>8)) {
+		//queens can move in a straight line or diagonally		
+		if(!((this.row!=newX && this.column!=newY) && Math.abs(this.row-newX)!=Math.abs(this.column-newY)) || (this.row==newX && this.column==newY) || newX<1 || newX>8 || newY<1 || newY>8) {
 			return false;
 		}
-		//moving columns
-		if(this.row==newX && (this.column==newY || newY<1 || newY>8)) {
+		this.row=newX;
+		this.column=newY;
+		return true;
+	}
+}
+
+class King extends ChessPiece{
+	/**
+	 * Constructor for King
+	 * @param row
+	 * @param column
+	 * @param team
+	 */
+	public King(int row, int column, int team) {
+		this.row=row;
+		this.column=column;
+		this.team=team;
+	}
+	
+	public boolean move(int newX, int newY) {
+		//kings can only move one space
+		if((this.row==newX && this.column==newY) || newX<1 || newX>8 || newY<1 || newY>8) {
 			return false;
 		}
-		//moving diagonally
-		if((this.row==newX || newX<1 || newX>8) && (this.column==newY || newY<1 || newY>8) && Math.abs(this.row-newX)!=Math.abs(this.column-newY)) {
+		if(Math.abs(this.row-newX)>1 || Math.abs(this.column-newY)>1) {
 			return false;
 		}
 		this.row=newX;
