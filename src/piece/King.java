@@ -30,4 +30,13 @@ public class King extends ChessPiece{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public String toString() {
+		if(team == WHITE) {
+			return "wK";
+		}else {
+			return "bK";
+		}
+	}
+	
 }

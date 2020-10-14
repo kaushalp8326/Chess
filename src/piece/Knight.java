@@ -90,5 +90,13 @@ public class Knight extends ChessPiece {
 		
 		return moves;
 	}
+	
+	public String toString() {
+		if(team == WHITE) {
+			return "wN";
+		}else {
+			return "bN";
+		}
+	}
 
 }

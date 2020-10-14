@@ -27,4 +27,13 @@ public class Queen extends ChessPiece{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public String toString() {
+		if(team == WHITE) {
+			return "wQ";
+		}else {
+			return "bQ";
+		}
+	}
+	
 }

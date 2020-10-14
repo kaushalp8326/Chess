@@ -27,4 +27,13 @@ public class Bishop extends ChessPiece{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public String toString() {
+		if(team == WHITE) {
+			return "wB";
+		}else {
+			return "bB";
+		}
+	}
+	
 }

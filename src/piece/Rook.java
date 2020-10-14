@@ -2,7 +2,7 @@ package piece;
 
 import java.util.ArrayList;
 
-class Rook extends ChessPiece{
+public class Rook extends ChessPiece{
 	/**
 	 * Constructor for Rook
 	 * @param row
@@ -33,4 +33,13 @@ class Rook extends ChessPiece{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public String toString() {
+		if(team == WHITE) {
+			return "wR";
+		}else {
+			return "bR";
+		}
+	}
+	
 }

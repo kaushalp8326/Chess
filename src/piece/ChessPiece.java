@@ -25,6 +25,12 @@ public abstract class ChessPiece {
 	protected int team;
 	
 	/**
+	 * Constants for a piece's team.
+	 */
+	public static final int WHITE = 0;
+	public static final int BLACK = 1;
+	
+	/**
 	 * Internal reference to the single Board object that represents the game.
 	 * Useful for methods involving moving.
 	 */
