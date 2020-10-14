@@ -1,8 +1,12 @@
-package chess;
+package piece;
+
+import java.util.ArrayList;
+import board.Board;
 
 /**
  * 
  * @author Kaushal Patel
+ * @author John Hoban
  *
  */
 
@@ -19,6 +23,24 @@ public abstract class ChessPiece {
 	//column represents file (a-h)
 	protected int column;
 	protected int team;
+	
+	/**
+	 * Internal reference to the single Board object that represents the game.
+	 * Useful for methods involving moving.
+	 */
+	protected Board board = new Board();
+	
+	/**
+	 * Generic constructor that will be called whenever a new piece of any kind is made.
+	 * @param row
+	 * @param column
+	 * @param team
+	 */
+	public ChessPiece(int row, int column, int team) {
+		this.row = row;
+		this.column = column;
+		this.team = team;
+	}
 	
 	/**
 	 * @return Returns the row/rank of the piece.
@@ -50,6 +72,16 @@ public abstract class ChessPiece {
 	}
 	
 	/**
+	 * Checks if a row-column pair falls within the bounds of the chessboard.
+	 * @param row
+	 * @param col
+	 * @return True if the coordinates fall inside an 8x8 board, false otherwise.
+	 */
+	public static boolean areValidCoordinates(int row, int col) {
+		return (0 <= row && row <= 7) && (0 <= col && col <= 7);
+	}
+	
+	/**
 	 * Abstract method to be implemented by each subclass to define the movement of a certain type of piece.
 	 * @param initialX
 	 * @param initialY
@@ -57,35 +89,11 @@ public abstract class ChessPiece {
 	 * @param newY
 	 * @return Returns a boolean value based on if the user has made a valid move
 	 */
-	public abstract boolean move(int initialX, int initialY, int newX, int newY);
-}
-
-class Rook extends ChessPiece{
-	/**
-	 * Constructor for Rook
-	 * @param row
-	 * @param column
-	 * @param team
-	 */
-	public Rook(int row, int column, int team) {
-		this.row=row;
-		this.column=column;
-		this.team=team;
-	}
+	public abstract boolean move(int newX, int newY);
 	
-	public boolean move(int initialX, int initialY, int newX, int newY) {
-		//rooks can only move in a straight line horizontally or vertically
-		if(initialX!=newX && initialY!=newY) {
-			return false;
-		}
-		if(initialY==newY && (initialX==newX || newX<1 || newX>8)) {
-			return false;
-		}
-		if(initialX==newX && (initialY==newY || newY<1 || newY>8)) {
-			return false;
-		}
-		this.row=newX;
-		this.column=newY;
-		return true;
-	}
+	/**
+	 * Returns the set of valid moves available to a piece.
+	 * @return Returns an ArrayList of coordinate pairs, each representing a valid move.
+	 */
+	public abstract ArrayList<int[]> getValidMoves();
 }
