@@ -83,14 +83,12 @@ public abstract class ChessPiece {
 	
 	/**
 	 * Abstract method to be implemented by each subclass to define the movement of a certain type of piece.
-	 * @param initialX
-	 * @param initialY
 	 * @param newX
 	 * @param newY
 	 * @return Returns a boolean value based on if the user has made a valid move
 	 */
 	public abstract boolean move(int newX, int newY);
-	
+
 	/**
 	 * Returns the set of valid moves available to a piece.
 	 * @return Returns an ArrayList of coordinate pairs, each representing a valid move.
