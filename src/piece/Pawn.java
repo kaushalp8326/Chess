@@ -33,7 +33,12 @@ public class Pawn extends ChessPiece {
 			return false;
 		}
 		
-		firstMove = false;
+		if(firstMove) {
+			firstMove = false;
+			if(Math.abs(row - newY) == 2) {
+				enPassantVulnerable = true;
+			}
+		}
 		
 		// Move the piece
 		this.board.remove(this);
@@ -56,7 +61,7 @@ public class Pawn extends ChessPiece {
 		ChessPiece[][] b = board.getBoard();
 		
 		// Pawns can have up to 4 possible moves available:
-		// Forward 1, forward 2, capture left, and capture right
+		// Forward 1, forward 2, capture/EP left, and capture/EP right
 		
 		// Forward moves
 		int r = row + direction; int c = column;
@@ -69,18 +74,33 @@ public class Pawn extends ChessPiece {
 			moves.add(new int[]{r,c});
 		}
 		
-		// Captures
-		// TODO en passant
+		// Left capture
 		r = row + direction; c = column - 1;
+		if(areValidCoordinates(r,c) && b[r][c] != null && b[r][c].getTeam() != team){
+			moves.add(new int[]{r,c});
+		}
+		// Right capture
+		r = row + direction; c = column + 1;
 		if(areValidCoordinates(r,c) &&
 				(b[r][c] != null && b[r][c].getTeam() != team)){
 			moves.add(new int[]{r,c});
 		}
 		
+		// Left en passant
+		r = row + direction; c = column - 1;
+		if(areValidCoordinates(r,c) && b[r][c] == null && b[row][c] instanceof Pawn && b[row][c].getTeam() != team) {
+			Pawn p = (Pawn)b[row][c];
+			if(p.enPassantVulnerable) {
+				moves.add(new int[] {r,c});
+			}
+		}
+		// Right en passant
 		r = row + direction; c = column + 1;
-		if(areValidCoordinates(r,c) &&
-				(b[r][c] != null && b[r][c].getTeam() != team)){
-			moves.add(new int[]{r,c});
+		if(areValidCoordinates(r,c) && b[r][c] == null && b[row][c] instanceof Pawn && b[row][c].getTeam() != team) {
+			Pawn p = (Pawn)b[row][c];
+			if(p.enPassantVulnerable) {
+				moves.add(new int[] {r,c});
+			}
 		}
 		
 		return moves;
