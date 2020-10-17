@@ -18,6 +18,7 @@ public class Pawn extends ChessPiece {
 		this.enPassantVulnerable = false;
 	}
 
+	@Override
 	public boolean move(int newX, int newY) {
 		// Check that the proposed move is in the valid moveset and contained in the
 		// chessboard's boundaries

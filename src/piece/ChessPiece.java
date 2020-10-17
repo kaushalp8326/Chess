@@ -1,6 +1,8 @@
 package piece;
 
 import java.util.ArrayList;
+import java.util.function.IntFunction;
+
 import board.Board;
 
 /**
@@ -35,6 +37,15 @@ public abstract class ChessPiece {
 	 * Useful for methods involving moving.
 	 */
 	protected Board board = new Board();
+	
+	/**
+	 * Directional moveset iterators. See documentation for getMovementLine().
+	 */
+	protected static final IntFunction<Integer> UP = r -> ++r;
+	protected static final IntFunction<Integer> DOWN = r -> --r;
+	protected static final IntFunction<Integer> LEFT = c -> --c;
+	protected static final IntFunction<Integer> RIGHT = c -> ++c;
+	protected static final IntFunction<Integer> NONE = i -> i;
 	
 	/**
 	 * Generic constructor that will be called whenever a new piece of any kind is made.
@@ -88,12 +99,62 @@ public abstract class ChessPiece {
 	}
 	
 	/**
-	 * Abstract method to be implemented by each subclass to define the movement of a certain type of piece.
+	 * Default method for moving a piece based on a piece's unique way of generating a moveset.
+	 * !! IMPORTANT: THIS MUST BE OVERRIDEN FOR PAWN AND KING SINCE THEY HAVE EXTRA PROPERTIES TO CHANGE AFTER A MOVE !!
 	 * @param newX
 	 * @param newY
 	 * @return Returns a boolean value based on if the user has made a valid move
 	 */
-	public abstract boolean move(int newX, int newY);
+	public boolean move(int newX, int newY) {
+		// Check that the proposed move is in the valid moveset and contained in the
+		// chessboard's boundaries
+		ArrayList<int[]> moves = getValidMoves();
+		boolean valid = false;
+		for(int[] m: moves) {
+			if(m[0] == newY && m[1] == newX) {
+				valid = true;
+				break;
+			}
+		}
+		if(!valid) {
+			return false;
+		}
+		
+		// Move the piece
+		this.board.remove(this);
+		this.row = newY;
+		this.column = newX;
+		this.board.add(this);
+		
+		return true;
+	}
+	
+	/**
+	 * Iterate through one possible direction, or "line", of movement, starting from the piece's origin.
+	 * Keeps adding valid moves to the movement line until another piece or the edge of the board is encountered.
+	 * For use with pieces with movement "speed" limit only by the board: Rook, Bishop, Queen.
+	 * @param rowDirection - IntFunction to represent row traversal. r -> r-- for moving left, r -> r++ for moving right.
+	 * @param colDirection - IntFunction to represent column traversal. c -> c-- for moving down, c -> c++ for moving up.
+	 * @return An ArrayList containing valid moveset coordinates. These should be combined with other directional iterations to generate the full moveset.
+	 */
+	public ArrayList<int[]> getMovementLine(IntFunction<Integer> rowDirection, IntFunction<Integer> colDirection){
+		ArrayList<int[]> moves = new ArrayList<int[]>();
+		ChessPiece[][] b = board.getBoard();
+		int r = row; int c = column;
+		while(areValidCoordinates(rowDirection.apply(r), colDirection.apply(c))) {
+			r = rowDirection.apply(r);
+			c = colDirection.apply(c);
+			if(b[r][c] == null) {
+				moves.add(new int[] {r,c});
+			}else if(b[r][c].getTeam() != team) {
+				moves.add(new int[] {r,c});
+				break;
+			}else {
+				break;
+			}
+		}
+		return moves;
+	}
 
 	/**
 	 * Returns the set of valid moves available to a piece.
