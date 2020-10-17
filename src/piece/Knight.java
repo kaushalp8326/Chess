@@ -8,30 +8,6 @@ public class Knight extends ChessPiece {
 		super(row, column, team);
 	}
 
-	public boolean move(int newX, int newY) {
-		
-		// Check that the proposed move is in the valid moveset and contained in the
-		// chessboard's boundaries
-		ArrayList<int[]> moves = getValidMoves();
-		boolean valid = false;
-		for(int[] m: moves) {
-			if(m[0] == newY && m[1] == newX) {
-				valid = true;
-				break;
-			}
-		}
-		if(!valid) {
-			return false;
-		}
-		
-		// Move the piece
-		this.board.remove(this);
-		this.row = newY;
-		this.column = newX;
-		this.board.add(this);
-		
-		return true;
-	}
 
 	public ArrayList<int[]> getValidMoves() {
 		
