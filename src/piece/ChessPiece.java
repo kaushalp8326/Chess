@@ -105,7 +105,7 @@ public abstract class ChessPiece {
 	 * @param newY
 	 * @return Returns a boolean value based on if the user has made a valid move
 	 */
-	public boolean move(int newX, int newY) {
+	public boolean move(int newY, int newX) {
 		// Check that the proposed move is in the valid moveset and contained in the
 		// chessboard's boundaries
 		ArrayList<int[]> moves = getValidMoves();

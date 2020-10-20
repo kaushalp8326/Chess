@@ -21,7 +21,7 @@ public class King extends ChessPiece{
 		this.castleEligible = true;
 	}
 	
-	public boolean move(int newX, int newY) {
+	public boolean move(int newY, int newX) {
 		// Check that the proposed move is in the valid moveset and contained in the
 		// chessboard's boundaries
 		ArrayList<int[]> moves = getValidMoves();

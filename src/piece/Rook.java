@@ -22,8 +22,8 @@ public class Rook extends ChessPiece{
 	}
 	
 	@Override
-	public boolean move(int newX, int newY) {
-		boolean valid = super.move(newX, newY);
+	public boolean move(int newY, int newX) {
+		boolean valid = super.move(newY, newX);
 		if(valid) {
 			castleEligible = false;
 		}

@@ -19,7 +19,7 @@ public class Pawn extends ChessPiece {
 	}
 
 	@Override
-	public boolean move(int newX, int newY) {
+	public boolean move(int newY, int newX) {
 		// Check that the proposed move is in the valid moveset and contained in the
 		// chessboard's boundaries
 		ArrayList<int[]> moves = getValidMoves();

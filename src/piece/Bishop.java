@@ -13,9 +13,9 @@ public class Bishop extends ChessPiece{
 		super(row, column, team);
 	}
 	
-	public boolean move(int newX, int newY) {
+	public boolean move(int newY, int newX) {
 		//bishops can only move diagonally
-		if((this.row==newX && this.column==newY) || newX<1 || newX>8 || newY<1 || newY>8 || Math.abs(this.row-newX)!=Math.abs(this.column-newY)) {
+		if((this.row==newX && this.column==newY) || !(areValidCoordinates(newX, newY)) || Math.abs(this.row-newX)!=Math.abs(this.column-newY)) {
 			return false;
 		}
 		this.row=newX;
