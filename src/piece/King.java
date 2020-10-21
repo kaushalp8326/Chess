@@ -145,6 +145,9 @@ public class King extends ChessPiece{
 		for(int row=0; row<8; row++) {{
 			for(int column=0; column<8; column++) {
 				ChessPiece piece=board.getBoard()[row][column];
+				if(piece==null) {
+					break;
+				}
 				//if the pieces are on the same team as the king, we don't have to check them
 				if(piece.getTeam()==this.team) {
 					break;
