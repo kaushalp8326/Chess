@@ -23,6 +23,9 @@ public class Board {
 	 */
 	public Board() {}
 	
+	/**
+	 * Default setup for the chessboard
+	 */
 	public void setup() {
 		board[0][0]=new Rook(0, 0, ChessPiece.BLACK);
 		board[0][1]=new Knight(0, 1, ChessPiece.BLACK);
@@ -57,7 +60,12 @@ public class Board {
 		int row = cp.getRow();
 		int col = cp.getColumn();
 		if(board[row][col] != null) {
-			return false;
+			//get piece that is being captured
+			ChessPiece toRemove=board[row][col];
+			//move captured piece out of board
+			toRemove.capture();
+			//open the space at (row,col)
+			this.remove(row, col);
 		}
 		board[row][col] = cp;
 		return true;
