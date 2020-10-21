@@ -3,19 +3,15 @@ package board;
 import piece.*;
 
 /**
- * 
+ * Wrapper class for the chess board matrix.
  * @author Kaushal Patel
  * @author John Hoban
  *
  */
-
-/**
- * Wrapper class for the chessboard matrix.
- * @author johnr
- *
- */
 public class Board {
-
+	/**
+	 * Board matrix.
+	 */
 	private static ChessPiece[][] board = new ChessPiece[8][8];
 	
 	/**
@@ -24,7 +20,7 @@ public class Board {
 	public Board() {}
 	
 	/**
-	 * Default setup for the chessboard
+	 * Default setup for the chess board.
 	 */
 	public void setup() {
 		board[0][0]=new Rook(0, 0, ChessPiece.BLACK);
@@ -73,10 +69,13 @@ public class Board {
 	
 	/**
 	 * Removes a piece from the board via the ChessPiece object.
-	 * @param cp
-	 * @return
+	 * @param cp - ChessPiece instance.
+	 * @return True if a piece is deleted, false if the cell was already empty.
 	 */
 	public boolean remove(ChessPiece cp) {
+		if(board[cp.getRow()][cp.getColumn()] == null) {
+			return false;
+		}
 		board[cp.getRow()][cp.getColumn()] = null;
 		return true;
 	}
@@ -103,6 +102,9 @@ public class Board {
 		return board;
 	}
 	
+	/**
+	 * Method used to print the board.
+	 */
 	public String toString() {
 		String s = "";
 		for(int row = 7; row >= 0; row--) {

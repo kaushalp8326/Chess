@@ -5,31 +5,37 @@ import java.util.function.IntFunction;
 
 import board.Board;
 
+
 /**
- * 
+ * This is an abstract class for all chess pieces.
+ * The class includes variables for the pieces row, column, and team designation.
+ * The class includes the methods getRow, getColumn, and getTeam to get the pieces row, column, and team designation respectively.
+ * Additionally, the capture method changes the row and column fields to -1 to denote a piece has been captured.
+ * There is a single abstract method named move, which will be defined in each subclass depending on how each piece is able to move on the board.
  * @author Kaushal Patel
  * @author John Hoban
- *
  */
-
 public abstract class ChessPiece {
 	/**
-	 * This is an abstract class for all chess pieces.
-	 * The class includes variables for the pieces row, column, and team designation.
-	 * The class includes the methods getRow, getColumn, and getTeam to get the pieces row, column, and team designation respectively.
-	 * Additionally, the capture method changes the row and column fields to -1 to denote a piece has been captured.
-	 * There is a single abstract method named move, which will be defined in each subclass depending on how each piece is able to move on the board.
+	 * Represents rank (0-7).
 	 */
-	//row represents rank (0-7)
 	protected int row;
-	//column represents file (a-h)
+	/**
+	 * Represents file (a-h).
+	 */
 	protected int column;
+	/**
+	 * Represents which team the piece belongs to (0-White, 1-Black).
+	 */
 	protected int team;
 	
 	/**
-	 * Constants for a piece's team.
+	 * Constant to denote the white team's pieces.
 	 */
 	public static final int WHITE = 0;
+	/**
+	 * Constant to denote the black team's pieces.
+	 */
 	public static final int BLACK = 1;
 	
 	/**
@@ -39,12 +45,24 @@ public abstract class ChessPiece {
 	protected Board board = new Board();
 	
 	/**
-	 * Directional moveset iterators. See documentation for getMovementLine().
+	 * Directional moveset iterator. See documentation for getMovementLine().
 	 */
 	protected static final IntFunction<Integer> UP = r -> ++r;
+	/**
+	 * Directional moveset iterator. See documentation for getMovementLine().
+	 */
 	protected static final IntFunction<Integer> DOWN = r -> --r;
+	/**
+	 * Directional moveset iterator. See documentation for getMovementLine().
+	 */
 	protected static final IntFunction<Integer> LEFT = c -> --c;
+	/**
+	 * Directional moveset iterator. See documentation for getMovementLine().
+	 */
 	protected static final IntFunction<Integer> RIGHT = c -> ++c;
+	/**
+	 * Directional moveset iterator. See documentation for getMovementLine().
+	 */
 	protected static final IntFunction<Integer> NONE = i -> i;
 	
 	/**
@@ -67,7 +85,7 @@ public abstract class ChessPiece {
 	}
 	
 	/**
-	 * @return Returns the column/file of the piece
+	 * @return Returns the column/file of the piece.
 	 */
 	public int getColumn() {
 		return column;
@@ -89,7 +107,7 @@ public abstract class ChessPiece {
 	}
 	
 	/**
-	 * Checks if a row-column pair falls within the bounds of the chessboard.
+	 * Checks if a row-column pair falls within the bounds of the chess board.
 	 * @param row
 	 * @param col
 	 * @return True if the coordinates fall inside an 8x8 board, false otherwise.
@@ -99,11 +117,11 @@ public abstract class ChessPiece {
 	}
 	
 	/**
-	 * Default method for moving a piece based on a piece's unique way of generating a moveset.
+	 * Method for moving a piece based on a piece's unique way of generating a moveset.
 	 * !! IMPORTANT: THIS MUST BE OVERRIDEN FOR PAWN AND KING SINCE THEY HAVE EXTRA PROPERTIES TO CHANGE AFTER A MOVE !!
 	 * @param newColumn
 	 * @param newRow
-	 * @return Returns a boolean value based on if the user has made a valid move
+	 * @return Returns a boolean value based on if the user has made a valid move.
 	 */
 	public boolean move(int newColumn, int newRow) {
 		// Check that the proposed move is in the valid moveset and contained in the

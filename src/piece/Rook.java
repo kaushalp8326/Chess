@@ -2,16 +2,21 @@ package piece;
 
 import java.util.ArrayList;
 
-public class Rook extends ChessPiece{
-	
+/**
+ * Rook class.
+ * @author Kaushal Patel
+ * @author John Hoban
+ *
+ */
+public class Rook extends ChessPiece{	
 	/**
 	 * Private member to determine if a king can still castle against this rook.
-	 * Is initially true, but becomes false once the Rook moves
+	 * Is initially true, but becomes false once the Rook moves.
 	 */
 	public boolean castleEligible;
 	
 	/**
-	 * Constructor for Rook
+	 * Constructor for Rook.
 	 * @param row
 	 * @param column
 	 * @param team
@@ -43,6 +48,9 @@ public class Rook extends ChessPiece{
 		return moves;
 	}
 	
+	/**
+	 * Method used to print the piece.
+	 */
 	public String toString() {
 		if(team == WHITE) {
 			return "wR";

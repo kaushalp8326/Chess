@@ -3,15 +3,27 @@ package piece;
 import java.util.ArrayList;
 
 /**
- * 
+ * Pawn class.
+ * @author Kaushal Patel
  * @author John Hoban
  *
  */
 public class Pawn extends ChessPiece {
-	
+	/**
+	 * Boolean value representing if the Pawn has made its first move.
+	 */
 	private boolean firstMove;
+	/**
+	 * Boolean value representing if the Pawn is vulnerable to an en passant.
+	 */
 	public boolean enPassantVulnerable;
 	
+	/**
+	 * Constructor for Pawn.
+	 * @param row
+	 * @param column
+	 * @param team
+	 */
 	public Pawn(int row, int column, int team) {
 		super(row, column, team);
 		this.firstMove = true;
@@ -140,6 +152,9 @@ public class Pawn extends ChessPiece {
 		return moves;
 	}
 	
+	/**
+	 * Method used to print the piece.
+	 */
 	public String toString() {
 		if(team == WHITE) {
 			return "wp";

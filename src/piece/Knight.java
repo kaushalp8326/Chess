@@ -2,8 +2,19 @@ package piece;
 
 import java.util.ArrayList;
 
+/**
+ * Knight class.
+ * @author Kaushal Patel
+ * @author John Hoban
+ *
+ */
 public class Knight extends ChessPiece {
-	
+	/**
+	 * Constructor for Knight.
+	 * @param row
+	 * @param column
+	 * @param team
+	 */
 	public Knight(int row, int column, int team) {
 		super(row, column, team);
 	}
@@ -67,6 +78,9 @@ public class Knight extends ChessPiece {
 		return moves;
 	}
 	
+	/**
+	 * Method used to print the piece.
+	 */
 	public String toString() {
 		if(team == WHITE) {
 			return "wN";

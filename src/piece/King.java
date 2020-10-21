@@ -3,6 +3,12 @@ package piece;
 import board.*;
 import java.util.ArrayList;
 
+/**
+ * King class.
+ * @author Kaushal Patel
+ * @author John Hoban
+ *
+ */
 public class King extends ChessPiece{
 	
 	/**
@@ -12,7 +18,7 @@ public class King extends ChessPiece{
 	private boolean castleEligible;
 	
 	/**
-	 * Constructor for King
+	 * Constructor for King.
 	 * @param row
 	 * @param column
 	 * @param team
@@ -22,13 +28,13 @@ public class King extends ChessPiece{
 		this.castleEligible = true;
 	}
 	
-	public boolean move(int newY, int newX) {
+	public boolean move(int newColumn, int newRow) {
 		// Check that the proposed move is in the valid moveset and contained in the
 		// chessboard's boundaries
 		ArrayList<int[]> moves = getValidMoves();
 		boolean valid = false;
 		for(int[] m: moves) {
-			if(m[0] == newY && m[1] == newX) {
+			if(m[0] == newRow && m[1] == newColumn) {
 				valid = true;
 				break;
 			}
@@ -39,11 +45,11 @@ public class King extends ChessPiece{
 		
 		// If we're castling, move the appropriate Rook first
 		if(castleEligible) {
-			if(newY == row && newX == 2) {
+			if(newRow == row && newColumn == 2) {
 				Rook rl = (Rook)(board.getBoard()[row][0]);
 				rl.move(3, row);
 				rl.castleEligible = false;
-			}else if(newY == row && newX == 6) {
+			}else if(newRow == row && newColumn == 6) {
 				Rook rr = (Rook)(board.getBoard()[row][7]);
 				rr.move(5, row);
 				rr.castleEligible = false;
@@ -53,8 +59,8 @@ public class King extends ChessPiece{
 		// Move the piece and note that this King can't castle anymore.
 		castleEligible = false;
 		this.board.remove(this);
-		this.row = newY;
-		this.column = newX;
+		this.row = newRow;
+		this.column = newColumn;
 		this.board.add(this);
 		
 		return true;
@@ -160,7 +166,7 @@ public class King extends ChessPiece{
 	
 	/**
 	 * 
-	 * @return True if the player's King is in check, false otherwise
+	 * @return True if the player's King is in check, false otherwise.
 	 */
 	public boolean isCheck() {
 		for(int row=0; row<8; row++) {
@@ -204,13 +210,16 @@ public class King extends ChessPiece{
 	
 	/**
 	 * 
-	 * @return True if the player has lost the game, false otherwise
+	 * @return True if the player has lost the game, false otherwise.
 	 */
 	public boolean isCheckmate() {
 		
 		return false;
 	}
 	
+	/**
+	 * Method used to print the piece.
+	 */
 	public String toString() {
 		if(team == WHITE) {
 			return "wK";

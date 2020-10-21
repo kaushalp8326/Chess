@@ -2,9 +2,15 @@ package piece;
 
 import java.util.ArrayList;
 
+/**
+ * Queen class.
+ * @author Kaushal Patel
+ * @author John Hoban
+ *
+ */
 public class Queen extends ChessPiece{
 	/**
-	 * Constructor for Queen
+	 * Constructor for Queen.
 	 * @param row
 	 * @param column
 	 * @param team
@@ -30,6 +36,9 @@ public class Queen extends ChessPiece{
 		return moves;
 	}
 	
+	/**
+	 * Method used to print the piece.
+	 */
 	public String toString() {
 		if(team == WHITE) {
 			return "wQ";

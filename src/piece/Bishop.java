@@ -2,9 +2,15 @@ package piece;
 
 import java.util.ArrayList;
 
+/**
+ * Bishop class.
+ * @author Kaushal Patel
+ * @author John Hoban
+ *
+ */
 public class Bishop extends ChessPiece{
 	/**
-	 * Constructor for Bishop
+	 * Constructor for Bishop.
 	 * @param row
 	 * @param column
 	 * @param team
@@ -26,6 +32,9 @@ public class Bishop extends ChessPiece{
 		return moves;
 	}
 	
+	/**
+	 * Method used to print the piece.
+	 */
 	public String toString() {
 		if(team == WHITE) {
 			return "wB";
