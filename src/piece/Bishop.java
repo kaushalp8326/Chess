@@ -12,16 +12,6 @@ public class Bishop extends ChessPiece{
 	public Bishop(int row, int column, int team) {
 		super(row, column, team);
 	}
-	
-	public boolean move(int newY, int newX) {
-		//bishops can only move diagonally
-		if((this.row==newX && this.column==newY) || !(areValidCoordinates(newX, newY)) || Math.abs(this.row-newX)!=Math.abs(this.column-newY)) {
-			return false;
-		}
-		this.row=newX;
-		this.column=newY;
-		return true;
-	}
 
 	public ArrayList<int[]> getValidMoves() {
 		

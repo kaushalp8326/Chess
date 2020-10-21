@@ -1,5 +1,6 @@
 package piece;
 
+import board.*;
 import java.util.ArrayList;
 
 public class King extends ChessPiece{
@@ -138,11 +139,31 @@ public class King extends ChessPiece{
 			}
 		}
 		
+		/*
+		 * test each move in the moveset to make sure it doesn't put the king in check
+		 * remove the moves that are invalid
+		 */
+		Board temp=this.board;
+		for(int i=0; i<moves.size(); i++) {
+			temp=this.board;
+			temp.remove(this.row,this.column);
+			King tempKing=new King(moves.get(i)[0], moves.get(i)[1], this.getTeam());
+			temp.add(tempKing);
+			if(tempKing.isCheck()) {
+				moves.remove(i);
+				i--;
+			}
+		}
+		
 		return moves;
 	}
 	
+	/**
+	 * 
+	 * @return True if the player's King is in check, false otherwise
+	 */
 	public boolean isCheck() {
-		for(int row=0; row<8; row++) {{
+		for(int row=0; row<8; row++) {
 			for(int column=0; column<8; column++) {
 				ChessPiece piece=board.getBoard()[row][column];
 				if(piece==null) {
@@ -177,8 +198,16 @@ public class King extends ChessPiece{
 				}
 			}
 		}
-			
-		}
+		
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @return True if the player has lost the game, false otherwise
+	 */
+	public boolean isCheckmate() {
+		
 		return false;
 	}
 	

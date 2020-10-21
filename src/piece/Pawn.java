@@ -19,13 +19,13 @@ public class Pawn extends ChessPiece {
 	}
 
 	@Override
-	public boolean move(int newY, int newX) {
+	public boolean move(int newColumn, int newRow) {
 		// Check that the proposed move is in the valid moveset and contained in the
 		// chessboard's boundaries
 		ArrayList<int[]> moves = getValidMoves();
 		boolean valid = false;
 		for(int[] m: moves) {
-			if(m[0] == newY && m[1] == newX) {
+			if(m[0] == newRow && m[1] == newColumn) {
 				valid = true;
 				break;
 			}
@@ -36,15 +36,15 @@ public class Pawn extends ChessPiece {
 		
 		if(firstMove) {
 			firstMove = false;
-			if(Math.abs(row - newY) == 2) {
+			if(Math.abs(row - newRow) == 2) {
 				enPassantVulnerable = true;
 			}
 		}
 		
 		// Move the piece
 		this.board.remove(this);
-		this.row = newY;
-		this.column = newX;
+		this.row = newRow;
+		this.column = newColumn;
 		this.board.add(this);
 		
 		return true;
