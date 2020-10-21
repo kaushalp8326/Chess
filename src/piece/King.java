@@ -141,6 +141,44 @@ public class King extends ChessPiece{
 		return moves;
 	}
 	
+	public boolean isCheck() {
+		for(int row=0; row<8; row++) {{
+			for(int column=0; column<8; column++) {
+				ChessPiece piece=board.getBoard()[row][column];
+				//if the pieces are on the same team as the king, we don't have to check them
+				if(piece.getTeam()==this.team) {
+					break;
+				}else {
+					ChessPiece p;
+					if(piece instanceof Bishop) {
+						p=(Bishop)piece;
+					}else if(piece instanceof King) {
+						p=(King)piece;
+					}else if(piece instanceof Knight) {
+						p=(Knight)piece;
+					}else if(piece instanceof Pawn) {
+						p=(Pawn)piece;
+					}else if(piece instanceof Queen) {
+						p=(Queen)piece;
+					}else {
+						//piece is instanceof Rook
+						p=(Rook)piece;
+					}
+					//generate moveset for the piece and see if it contains the kings position
+					ArrayList<int[]> moves = p.getValidMoves();
+					for(int i=0; i<moves.size(); i++) {
+						if(moves.get(i)[0]==this.row && moves.get(i)[1]==this.column) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+			
+		}
+		return false;
+	}
+	
 	public String toString() {
 		if(team == WHITE) {
 			return "wK";

@@ -145,9 +145,11 @@ public abstract class ChessPiece {
 			r = rowDirection.apply(r);
 			c = colDirection.apply(c);
 			if(b[r][c] == null) {
-				moves.add(new int[] {r,c});
+				int[] toAdd= {r,c};
+				moves.add(toAdd);
 			}else if(b[r][c].getTeam() != team) {
-				moves.add(new int[] {r,c});
+				int[] toAdd= {r,c};
+				moves.add(toAdd);
 				break;
 			}else {
 				break;
