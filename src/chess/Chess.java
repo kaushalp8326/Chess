@@ -7,7 +7,8 @@ public class Chess {
 
 	public static final int BLACK = ChessPiece.BLACK;
 	public static final int WHITE = ChessPiece.WHITE;
-	public int turn=WHITE;
+	//White must make the first move
+	public static int turn=WHITE;
 	
 	/**
 	 * 
@@ -33,6 +34,12 @@ public class Chess {
 	public static void main(String[] args) {
 		Board game=new Board();
 		game.setup();
+		boolean gameEnd=false;
+		while(!gameEnd) {
+			if(turn==WHITE) {
+				
+			}
+		}
 	}
 	
 }

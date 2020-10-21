@@ -43,11 +43,44 @@ public class Pawn extends ChessPiece {
 		
 		// Move the piece
 		this.board.remove(this);
-		this.row = newRow;
-		this.column = newColumn;
-		this.board.add(this);
+		if(newRow==7 || newRow==0) {
+			//promote Pawn to a Queen by default if no other piece is indicated
+			Queen q=new Queen(newRow, newColumn, this.getTeam());
+			this.board.add(q);
+		}else {
+			this.row = newRow;
+			this.column = newColumn;
+			this.board.add(this);
+		}
 		
 		return true;
+	}
+	
+	public boolean move(int newColumn, int newRow, String promote) {
+		if(newRow==7 || newRow==0) {
+			this.board.remove(this);
+			if(promote.equalsIgnoreCase("r")) {
+				Rook piece=new Rook(newRow, newColumn, this.getTeam());
+				this.board.add(piece);
+				return true;
+			}else if(promote.equalsIgnoreCase("n")) {
+				Knight piece=new Knight(newRow, newColumn, this.getTeam());
+				this.board.add(piece);
+				return true;
+			}else if(promote.equalsIgnoreCase("b")) {
+				Bishop piece=new Bishop(newRow, newColumn, this.getTeam());
+				this.board.add(piece);
+				return true;
+			}else {
+				//promote to queen
+				Queen piece=new Queen(newRow, newColumn, this.getTeam());
+				this.board.add(piece);
+				return true;
+			}
+		}else {
+			//invalid move
+			return false;
+		}
 	}
 
 	public ArrayList<int[]> getValidMoves() {
