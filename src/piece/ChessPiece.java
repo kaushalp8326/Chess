@@ -178,30 +178,30 @@ public abstract class ChessPiece {
 		 * test each move in the moveset to make sure it doesn't put the king in check
 		 * remove the moves that are invalid
 		 */
-		//find position of king
-		int kingRow=-1;
-		int kingColumn=-1;
-		for(int row=0; row<8; row++) {
-			for(int column=0; column<8; column++) {
-				if(board.getBoard()[row][column] instanceof King && board.getBoard()[row][column].getTeam()==this.team) {
-					kingRow=row;
-					kingColumn=column;
-				}
-			}
-		}
+		moves=testMoves(moves);
+		return moves;
+	}
+	
+	/**
+	 * 
+	 * @param allPossibleMoves
+	 * @return moveset containing only valid moves that do not put the player's own King in check.
+	 */
+	public ArrayList<int[]> testMoves(ArrayList<int[]> allPossibleMoves) {
+		ArrayList<int[]> validMoves = new ArrayList<int[]>();
+		int kingRow=this.row;
+		int kingColumn=this.column;
 		Board temp=this.board;
-		for(int i=0; i<moves.size(); i++) {
+		for(int i=0; i<allPossibleMoves.size(); i++) {
 			temp=this.board;
 			temp.remove(kingRow,kingColumn);
-			King tempKing=new King(moves.get(i)[0], moves.get(i)[1], this.getTeam());
+			King tempKing=new King(allPossibleMoves.get(i)[0], allPossibleMoves.get(i)[1], this.getTeam());
 			temp.add(tempKing);
-			if(tempKing.isCheck()) {
-				moves.remove(i);
-				i--;
+			if(!tempKing.isCheck()) {
+				validMoves.add(allPossibleMoves.get(i));
 			}
 		}
-		
-		return moves;
+		return validMoves;
 	}
 
 	/**

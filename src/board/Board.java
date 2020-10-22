@@ -107,6 +107,23 @@ public class Board {
 	 */
 	public String toString() {
 		String s = "";
+		for(int row = 0; row < 8; row++) {
+			for(int col = 0; col < 8; col++) {
+				if(board[row][col] != null) {
+					s += board[row][col].toString() + " ";
+				}else if((row + col) % 2 == 0) {
+					s += "## ";
+				}else {
+					s += "   ";
+				}
+			}
+			s += String.valueOf(8-row) + "\n";
+		}
+		s += " a  b  c  d  e  f  g  h";
+		s += "\n";
+		return s;
+		/*
+		String s = "";
 		for(int row = 7; row >= 0; row--) {
 			for(int col = 0; col < 8; col++) {
 				if(board[row][col] != null) {
@@ -121,6 +138,7 @@ public class Board {
 		}
 		s += " a  b  c  d  e  f  g  h";
 		return s;
+		*/
 	}
 	
 }
