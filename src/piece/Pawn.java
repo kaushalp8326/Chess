@@ -100,9 +100,9 @@ public class Pawn extends ChessPiece {
 		ArrayList<int[]> moves = new ArrayList<int[]>(4);
 		int direction;
 		if(team == WHITE) {
-			direction = 1;
-		}else {
 			direction = -1;
+		}else {
+			direction = 1;
 		}
 		ChessPiece[][] b = board.getBoard();
 		

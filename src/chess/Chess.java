@@ -72,6 +72,7 @@ public class Chess {
 		boolean drawRequest=false;
 		Scanner sc=new Scanner(System.in);
 		while(!gameEnd) {
+
 			System.out.println(game);
 			boolean promotionPotential=false;
 			String promotion="";
@@ -246,6 +247,41 @@ public class Chess {
 					}
 				}
 			}
+
+			/*
+			System.out.println("\n" + game + "\n");
+			
+			int newColumn;
+			int newRow;
+			ChessPiece piece;
+			do {
+				if(turn==WHITE) {
+					System.out.print("White's move: ");
+				}else {
+					System.out.print("Black's move: ");
+				}
+				String move=sc.nextLine();
+				if(move.equalsIgnoreCase("resign")) {
+					resign(turn);
+				}
+				if(move.indexOf("draw?")!=-1) {
+					move=move.substring(0,move.indexOf(" draw?"));
+					drawRequest=true;
+				}else if(drawRequest && !move.equalsIgnoreCase("draw")) {
+					drawRequest=false;
+				}
+				if(move.equalsIgnoreCase("draw") && drawRequest) {
+					System.exit(0);
+				}
+				
+				int initialColumn = move.charAt(0) - 'a';
+				int initialRow= Integer.parseInt(move.substring(1,2)) - 1;
+				newRow= Integer.parseInt(move.substring(4)) - 1;
+				newColumn = move.charAt(3) - 'a';
+				piece=game.getBoard()[initialRow][initialColumn];
+			}while(!piece.move(newColumn, newRow));
+			*/
+
 			
 			//TODO check for checkmate here? (after move has been made)
 			if(turn==WHITE) {
