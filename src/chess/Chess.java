@@ -52,187 +52,35 @@ public class Chess {
 		while(!gameEnd) {
 
 			System.out.println(game);
-			boolean promotionPotential=false;
-			String promotion="";
-			if(turn==WHITE) {
-				System.out.println("White's move: ");
-			}else {
-				System.out.println("Black's move: ");
-			}
-			String move=sc.nextLine();
-			//e2 e4 p
-			if(move.length()==7) {
-				promotionPotential=true;
-				promotion=move.substring(6);
-			}
-			if(move.equalsIgnoreCase("resign")) {
-				resign(turn);
-			}
-			if(move.indexOf("draw?")!=-1) {
-				move=move.substring(0,move.indexOf(" draw?"));
-				drawRequest=true;
-			}else if(drawRequest && !move.equalsIgnoreCase("draw")) {
-				drawRequest=false;
-			}
-			if(move.equalsIgnoreCase("draw") && drawRequest) {
-				System.exit(0);
-			}
-			int initialColumn;
-			int initialRow=8-Integer.parseInt(move.substring(1,2));
-			int newColumn;
-			int newRow=8-Integer.parseInt(move.substring(4));			
-			if(move.substring(0,1).equalsIgnoreCase("a")) {
-				initialColumn=0;
-			}else if(move.substring(0,1).equalsIgnoreCase("b")) {
-				initialColumn=1;
-			}else if(move.substring(0,1).equalsIgnoreCase("c")) {
-				initialColumn=2;
-			}else if(move.substring(0,1).equalsIgnoreCase("d")) {
-				initialColumn=3;
-			}else if(move.substring(0,1).equalsIgnoreCase("e")) {
-				initialColumn=4;
-			}else if(move.substring(0,1).equalsIgnoreCase("f")) {
-				initialColumn=5;
-			}else if(move.substring(0,1).equalsIgnoreCase("g")) {
-				initialColumn=6;
-			}else {
-				//h
-				initialColumn=7;
-			}
-			if(move.substring(3,4).equalsIgnoreCase("a")) {
-				newColumn=0;
-			}else if(move.substring(3,4).equalsIgnoreCase("b")) {
-				newColumn=1;
-			}else if(move.substring(3,4).equalsIgnoreCase("c")) {
-				newColumn=2;
-			}else if(move.substring(3,4).equalsIgnoreCase("d")) {
-				newColumn=3;
-			}else if(move.substring(3,4).equalsIgnoreCase("e")) {
-				newColumn=4;
-			}else if(move.substring(3,4).equalsIgnoreCase("f")) {
-				newColumn=5;
-			}else if(move.substring(3,4).equalsIgnoreCase("g")) {
-				newColumn=6;
-			}else {
-				//h
-				newColumn=7;
-			}			
-			if(!promotionPotential) {
-				ChessPiece piece=game.getBoard()[initialRow][initialColumn];
-				while(!piece.move(newColumn, newRow)) {
-					//Invalid move, try again
-					System.out.println("Illegal move, try again");
-					if(turn==WHITE) {
-						System.out.println("White's move: ");
-					}else {
-						System.out.println("Black's move: ");
-					}
-					move=sc.nextLine();
-					initialRow=8-Integer.parseInt(move.substring(1,2));
-					newRow=8-Integer.parseInt(move.substring(4));
-					if(move.substring(0,1).equalsIgnoreCase("a")) {
-						initialColumn=0;
-					}else if(move.substring(0,1).equalsIgnoreCase("b")) {
-						initialColumn=1;
-					}else if(move.substring(0,1).equalsIgnoreCase("c")) {
-						initialColumn=2;
-					}else if(move.substring(0,1).equalsIgnoreCase("d")) {
-						initialColumn=3;
-					}else if(move.substring(0,1).equalsIgnoreCase("e")) {
-						initialColumn=4;
-					}else if(move.substring(0,1).equalsIgnoreCase("f")) {
-						initialColumn=5;
-					}else if(move.substring(0,1).equalsIgnoreCase("g")) {
-						initialColumn=6;
-					}else {
-						//h
-						initialColumn=7;
-					}
-					if(move.substring(3,4).equalsIgnoreCase("a")) {
-						newColumn=0;
-					}else if(move.substring(3,4).equalsIgnoreCase("b")) {
-						newColumn=1;
-					}else if(move.substring(3,4).equalsIgnoreCase("c")) {
-						newColumn=2;
-					}else if(move.substring(3,4).equalsIgnoreCase("d")) {
-						newColumn=3;
-					}else if(move.substring(3,4).equalsIgnoreCase("e")) {
-						newColumn=4;
-					}else if(move.substring(3,4).equalsIgnoreCase("f")) {
-						newColumn=5;
-					}else if(move.substring(3,4).equalsIgnoreCase("g")) {
-						newColumn=6;
-					}else {
-						//h
-						newColumn=7;
-					}
-				}
-			}else {
-				//promotion of pawn
-				Pawn piece=(Pawn)game.getBoard()[initialRow][initialColumn];
-				while(!piece.move(newColumn, newRow, promotion)) {
-					//Invalid move, try again
-					System.out.println("Illegal move, try again");
-					if(turn==WHITE) {
-						System.out.println("White's move: ");
-					}else {
-						System.out.println("Black's move: ");
-					}
-					move=sc.nextLine();
-					initialRow=8-Integer.parseInt(move.substring(1,2));
-					newRow=8-Integer.parseInt(move.substring(4));
-					if(move.substring(0,1).equalsIgnoreCase("a")) {
-						initialColumn=0;
-					}else if(move.substring(0,1).equalsIgnoreCase("b")) {
-						initialColumn=1;
-					}else if(move.substring(0,1).equalsIgnoreCase("c")) {
-						initialColumn=2;
-					}else if(move.substring(0,1).equalsIgnoreCase("d")) {
-						initialColumn=3;
-					}else if(move.substring(0,1).equalsIgnoreCase("e")) {
-						initialColumn=4;
-					}else if(move.substring(0,1).equalsIgnoreCase("f")) {
-						initialColumn=5;
-					}else if(move.substring(0,1).equalsIgnoreCase("g")) {
-						initialColumn=6;
-					}else {
-						//h
-						initialColumn=7;
-					}
-					if(move.substring(3,4).equalsIgnoreCase("a")) {
-						newColumn=0;
-					}else if(move.substring(3,4).equalsIgnoreCase("b")) {
-						newColumn=1;
-					}else if(move.substring(3,4).equalsIgnoreCase("c")) {
-						newColumn=2;
-					}else if(move.substring(3,4).equalsIgnoreCase("d")) {
-						newColumn=3;
-					}else if(move.substring(3,4).equalsIgnoreCase("e")) {
-						newColumn=4;
-					}else if(move.substring(3,4).equalsIgnoreCase("f")) {
-						newColumn=5;
-					}else if(move.substring(3,4).equalsIgnoreCase("g")) {
-						newColumn=6;
-					}else {
-						//h
-						newColumn=7;
+			
+			// Before any moves are made, all pawns on this team that were vulnerable to en passant
+			// capture are no longer vulnerable, since a complete turn has passed.
+			ChessPiece[][] b = game.getBoard();
+			for(int i = 0; i < 8; i++) {
+				for(int j = 0; j < 8; j++) {
+					if(b[i][j] instanceof Pawn && b[i][j].getTeam() == turn) {
+						Pawn p = (Pawn)b[i][j];
+						p.enPassantVulnerable = false;
 					}
 				}
 			}
 
-			/*
-			System.out.println("\n" + game + "\n");
-			
-			int newColumn;
-			int newRow;
-			ChessPiece piece;
+			boolean executedMove = false;
 			do {
+				// Read user input
+				boolean promotionPotential=false;
+				String promotion="";
 				if(turn==WHITE) {
 					System.out.print("White's move: ");
 				}else {
 					System.out.print("Black's move: ");
 				}
 				String move=sc.nextLine();
+				//e2 e4 p
+				if(move.length()==7) {
+					promotionPotential=true;
+					promotion=move.substring(6);
+				}
 				if(move.equalsIgnoreCase("resign")) {
 					resign(turn);
 				}
@@ -246,14 +94,27 @@ public class Chess {
 					System.exit(0);
 				}
 				
+				drawRequest = false;
 				int initialColumn = move.charAt(0) - 'a';
-				int initialRow= Integer.parseInt(move.substring(1,2)) - 1;
-				newRow= Integer.parseInt(move.substring(4)) - 1;
-				newColumn = move.charAt(3) - 'a';
-				piece=game.getBoard()[initialRow][initialColumn];
-			}while(!piece.move(newColumn, newRow));
-			*/
-
+				int initialRow=8-Integer.parseInt(move.substring(1,2));
+				int newColumn = move.charAt(3) - 'a';
+				int newRow=8-Integer.parseInt(move.substring(4));
+				
+				// Execute move, if legal
+				ChessPiece p = game.getBoard()[initialRow][initialColumn];
+				if(p instanceof Pawn && promotionPotential) {
+					Pawn pwn = (Pawn)p;
+					executedMove = (pwn != null && pwn.getTeam() == turn && pwn.move(newColumn, newRow, promotion));
+				}else {
+					executedMove = (p != null && p.getTeam() == turn && p.move(newColumn, newRow));
+				}
+				
+				// Error message for illegal move
+				if(!executedMove) {
+					System.out.println("Illegal move, try again");
+				}
+				
+			}while(!executedMove);
 			
 			//TODO check for checkmate here? (after move has been made)
 			if(turn==WHITE) {
@@ -261,6 +122,7 @@ public class Chess {
 			}else {
 				turn=WHITE;
 			}
+			System.out.println();
 		}
 		sc.close();
 	}
