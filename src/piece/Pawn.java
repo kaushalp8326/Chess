@@ -65,6 +65,24 @@ public class Pawn extends ChessPiece {
 			this.board.add(this);
 		}
 		
+		// If we performed en passant, remove the piece we passed
+		ChessPiece[][] b = this.board.getBoard();
+		if(team == WHITE) {
+			if(b[row+1][column] instanceof Pawn) {
+				Pawn p = (Pawn)b[row+1][column];
+				if(p.getTeam() != team && p.enPassantVulnerable) {
+					this.board.remove(p);
+				}
+			}
+		}else { // BLACK
+			if(b[row-1][column] instanceof Pawn) {
+				Pawn p = (Pawn)b[row-1][column];
+				if(p.getTeam() != team && p.enPassantVulnerable) {
+					this.board.remove(p);
+				}
+			}
+		}
+		
 		return true;
 	}
 	
