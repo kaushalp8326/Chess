@@ -116,13 +116,7 @@ public class Chess {
 			}else {
 				//h
 				newColumn=7;
-			}
-			
-			System.out.println(initialColumn);
-			System.out.println(initialRow);
-			System.out.println(newColumn);
-			System.out.println(newRow);
-			
+			}			
 			if(!promotionPotential) {
 				ChessPiece piece=game.getBoard()[initialRow][initialColumn];
 				while(!piece.move(newColumn, newRow)) {
