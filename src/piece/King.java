@@ -2,6 +2,7 @@ package piece;
 
 import board.*;
 import java.util.ArrayList;
+import java.util.function.IntFunction;
 
 /**
  * King class.
@@ -166,46 +167,118 @@ public class King extends ChessPiece{
 	
 	/**
 	 * 
-	 * @return True if the player's King is in check, false otherwise.
+	 * @param rowDirection
+	 * @param colDirection
+	 * @return If the King is put into check from a piece in this direction.
 	 */
-	public boolean isCheck() {
-		for(int row=0; row<8; row++) {
-			for(int column=0; column<8; column++) {
-				ChessPiece piece=board.getBoard()[row][column];
-				if(piece==null) {
-					break;
-				}
-				//if the pieces are on the same team as the king, we don't have to check them
-				if(piece.getTeam()==this.team) {
-					break;
-				}else {
-					ChessPiece p;
-					if(piece instanceof Bishop) {
-						p=(Bishop)piece;
-					}else if(piece instanceof King) {
-						p=(King)piece;
-					}else if(piece instanceof Knight) {
-						p=(Knight)piece;
-					}else if(piece instanceof Pawn) {
-						p=(Pawn)piece;
-					}else if(piece instanceof Queen) {
-						p=(Queen)piece;
-					}else {
-						//piece is instanceof Rook
-						p=(Rook)piece;
-					}
-					//generate moveset for the piece and see if it contains the kings position
-					ArrayList<int[]> moves = p.getValidMoves();
-					for(int i=0; i<moves.size(); i++) {
-						if(moves.get(i)[0]==this.row && moves.get(i)[1]==this.column) {
-							return true;
-						}
+	public boolean safeFrom(IntFunction<Integer> rowDirection, IntFunction<Integer> colDirection){
+		ChessPiece[][] b = board.getBoard();
+		int r = this.row;
+		int c = this.column;
+		while(areValidCoordinates(rowDirection.apply(r), colDirection.apply(c))) {
+			r = rowDirection.apply(r);
+			c = colDirection.apply(c);
+			if(b[r][c] == null) {
+				//safe for now, keep going until you find a piece
+			}else if(b[r][c].getTeam() == team) {
+				//safe, this is your piece
+				return true;
+			}else {
+				//opposing teams piece in line with King
+				//make sure it can't attack King
+				ChessPiece target=b[r][c];
+				ArrayList<int[]> moves = target.getValidMoves();
+				for(int i=0; i<moves.size(); i++) {
+					if(moves.get(i)[0]==this.row && moves.get(i)[1]==this.column) {
+						//the opposing teams piece can attack the King
+						return false;
 					}
 				}
+				//went through all moves and it cannot attack the King
+				return true;
+				
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * 
+	 * @return If the King is put into check from a Knight in any direction.
+	 */
+	public boolean safeFromKnight() {
+		ChessPiece[][] b = board.getBoard();
+		int r=this.row;
+		int c=this.column;
+		r=this.row-2;
+		c=this.column+1;
+		if(areValidCoordinates(r,c)) {
+			if(b[r][c] instanceof Knight && b[r][c].getTeam()!=this.team) {
+				return false;
+			}
+		}
+		r=this.row-1;
+		c=this.column+2;
+		if(areValidCoordinates(r,c)) {
+			if(b[r][c] instanceof Knight && b[r][c].getTeam()!=this.team) {
+				return false;
+			}
+		}
+		r=this.row+1;
+		c=this.column+2;
+		if(areValidCoordinates(r,c)) {
+			if(b[r][c] instanceof Knight && b[r][c].getTeam()!=this.team) {
+				return false;
+			}
+		}
+		r=this.row+2;
+		c=this.column+1;
+		if(areValidCoordinates(r,c)) {
+			if(b[r][c] instanceof Knight && b[r][c].getTeam()!=this.team) {
+				return false;
+			}
+		}
+		r=this.row+2;
+		c=this.column-1;
+		if(areValidCoordinates(r,c)) {
+			if(b[r][c] instanceof Knight && b[r][c].getTeam()!=this.team) {
+				return false;
+			}
+		}
+		r=this.row+1;
+		c=this.column-2;
+		if(areValidCoordinates(r,c)) {
+			if(b[r][c] instanceof Knight && b[r][c].getTeam()!=this.team) {
+				return false;
+			}
+		}
+		r=this.row-1;
+		c=this.column-2;
+		if(areValidCoordinates(r,c)) {
+			if(b[r][c] instanceof Knight && b[r][c].getTeam()!=this.team) {
+				return false;
+			}
+		}
+		r=this.row-2;
+		c=this.column-1;
+		if(areValidCoordinates(r,c)) {
+			if(b[r][c] instanceof Knight && b[r][c].getTeam()!=this.team) {
+				return false;
 			}
 		}
 		
-		return false;
+		return true;
+	}
+	
+	/**
+	 * 
+	 * @return True if the player's King is in check, false otherwise.
+	 */
+	public boolean isCheck() {
+		//safeFrom + all directions
+		//safeFromKnight
+		//&& all answers and return
+		return safeFromKnight()&&safeFrom(UP,NONE)&&safeFrom(UP,RIGHT)&&safeFrom(NONE,RIGHT)&&safeFrom(DOWN,RIGHT)&&safeFrom(DOWN,NONE)&&safeFrom(DOWN,LEFT)&&safeFrom(NONE,LEFT)&&safeFrom(UP,LEFT);
 	}
 	
 	/**

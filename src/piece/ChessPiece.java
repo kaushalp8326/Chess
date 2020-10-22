@@ -178,7 +178,7 @@ public abstract class ChessPiece {
 		 * test each move in the moveset to make sure it doesn't put the king in check
 		 * remove the moves that are invalid
 		 */
-		//find position of king
+		/*
 		int kingRow=-1;
 		int kingColumn=-1;
 		for(int row=0; row<8; row++) {
@@ -200,7 +200,12 @@ public abstract class ChessPiece {
 				i--;
 			}
 		}
-		
+		*/
+		return moves;
+	}
+	
+	public ArrayList<int[]> testMoves() {
+		ArrayList<int[]> moves = new ArrayList<int[]>();
 		return moves;
 	}
 
