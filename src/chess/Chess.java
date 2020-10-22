@@ -45,29 +45,7 @@ public class Chess {
 	public static void main(String[] args) {
 		//TODO still need to check for the promotion input for pawns
 		Board game=new Board();
-		//game.setup();
-		game.getBoard()[0][0]=new Rook(0, 0, ChessPiece.BLACK);
-		/*game.getBoard()[0][1]=new Knight(0, 1, ChessPiece.BLACK);
-		game.getBoard()[0][2]=new Bishop(0, 2, ChessPiece.BLACK);
-		game.getBoard()[0][3]=new Queen(0, 3, ChessPiece.BLACK);*/
-		game.getBoard()[0][4]=new King(0, 4, ChessPiece.BLACK);
-		/*game.getBoard()[0][5]=new Bishop(0, 5, ChessPiece.BLACK);
-		game.getBoard()[0][6]=new Knight(0, 6, ChessPiece.BLACK);*/
-		game.getBoard()[0][7]=new Rook(0, 7, ChessPiece.BLACK);
-		for(int i=0; i<8; i++) {
-			//game.getBoard()[1][i]=new Pawn(1, i, ChessPiece.BLACK);
-		}
-		for(int i=0; i<8; i++) {
-			//game.getBoard()[6][i]=new Pawn(6, i, ChessPiece.WHITE);
-		}
-		game.getBoard()[7][0]=new Rook(7, 0, ChessPiece.WHITE);
-		/*game.getBoard()[7][1]=new Knight(7, 1, ChessPiece.WHITE);
-		game.getBoard()[7][2]=new Bishop(7, 2, ChessPiece.WHITE);
-		game.getBoard()[7][3]=new Queen(7, 3, ChessPiece.WHITE);*/
-		game.getBoard()[7][4]=new King(7, 4, ChessPiece.WHITE);
-		/*game.getBoard()[7][5]=new Bishop(7, 5, ChessPiece.WHITE);
-		game.getBoard()[7][6]=new Knight(7, 6, ChessPiece.WHITE);*/
-		game.getBoard()[7][7]=new Rook(7, 7, ChessPiece.WHITE);
+		game.setup();
 		boolean gameEnd=false;
 		boolean drawRequest=false;
 		Scanner sc=new Scanner(System.in);
