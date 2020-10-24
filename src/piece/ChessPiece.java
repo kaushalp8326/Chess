@@ -188,11 +188,58 @@ public abstract class ChessPiece {
 	 * @return moveset containing only valid moves that do not put the player's own King in check.
 	 */
 	public ArrayList<int[]> testMoves(ArrayList<int[]> allPossibleMoves) {
+		if(allPossibleMoves.size()==0) {
+			return allPossibleMoves;
+		}
 		ArrayList<int[]> validMoves = new ArrayList<int[]>();
-		int kingRow=this.row;
-		int kingColumn=this.column;
-		Board temp=this.board;
+		ChessPiece[][] b=this.board.getBoard();
+		ChessPiece[][] temp=new ChessPiece[8][8];
+		for(int i=0; i<8; i++) {
+			for(int j=0; j<8; j++) {
+				temp[i][j]=b[i][j];
+			}
+		}
+		int kingRow=0;
+		int kingColumn=0;
+		//find this player's King
+		for(int i=0; i<8; i++) {
+			for(int j=0; j<8; j++) {
+				if(temp[i][j]!=null) {
+					if(temp[i][j] instanceof King && temp[i][j].getTeam()==this.getTeam()) {
+						kingRow=i;
+						kingColumn=j;
+						break;
+					}
+				}
+			}
+		}
+		//King k=(King)temp[kingRow][kingColumn];
+		//ChessPiece toMove=temp[this.row][this.column];
+		ChessPiece toMove;
+		if(temp[this.row][this.column] instanceof Bishop) {
+			toMove=new Bishop(this.row, this.column, this.getTeam());
+		}else if(temp[this.row][this.column] instanceof King) {
+			toMove=new King(this.row, this.column, this.getTeam());
+		}else if(temp[this.row][this.column] instanceof Knight) {
+			toMove=new Knight(this.row, this.column, this.getTeam());
+		}else if(temp[this.row][this.column] instanceof Pawn) {
+			toMove=new Pawn(this.row, this.column, this.getTeam());
+		}else if(temp[this.row][this.column] instanceof Queen) {
+			toMove=new Queen(this.row, this.column, this.getTeam());
+		}else {
+			//Rook
+			toMove=new Rook(this.row, this.column, this.getTeam());
+		}
 		for(int i=0; i<allPossibleMoves.size(); i++) {
+			ChessPiece[][] temp2 = temp;
+			temp2[this.row][this.column]=null;
+			toMove.row = allPossibleMoves.get(i)[0];
+			toMove.column = allPossibleMoves.get(i)[1];
+			temp2[toMove.row][toMove.column]=toMove;
+			if(!((King)(temp2[kingRow][kingColumn])).isCheck(temp2)) {
+				validMoves.add(allPossibleMoves.get(i));
+			}
+			/*
 			temp=this.board;
 			temp.remove(kingRow,kingColumn);
 			King tempKing=new King(allPossibleMoves.get(i)[0], allPossibleMoves.get(i)[1], this.getTeam());
@@ -200,6 +247,7 @@ public abstract class ChessPiece {
 			if(!tempKing.isCheck()) {
 				validMoves.add(allPossibleMoves.get(i));
 			}
+			*/
 		}
 		return validMoves;
 	}

@@ -156,7 +156,7 @@ public class King extends ChessPiece{
 			temp.remove(this.row,this.column);
 			King tempKing=new King(moves.get(i)[0], moves.get(i)[1], this.getTeam());
 			temp.add(tempKing);
-			if(tempKing.isCheck()) {
+			if(tempKing.isCheck(temp.getBoard())) {
 				moves.remove(i);
 				i--;
 			}
@@ -171,8 +171,8 @@ public class King extends ChessPiece{
 	 * @param colDirection
 	 * @return If the King is put into check from a piece in this direction.
 	 */
-	public boolean safeFrom(IntFunction<Integer> rowDirection, IntFunction<Integer> colDirection){
-		ChessPiece[][] b = board.getBoard();
+	public boolean safeFrom(IntFunction<Integer> rowDirection, IntFunction<Integer> colDirection, ChessPiece[][] b){
+		//ChessPiece[][] b = board.getBoard();
 		int r = this.row;
 		int c = this.column;
 		while(areValidCoordinates(rowDirection.apply(r), colDirection.apply(c))) {
@@ -206,8 +206,8 @@ public class King extends ChessPiece{
 	 * 
 	 * @return If the King is put into check from a Knight in any direction.
 	 */
-	public boolean safeFromKnight() {
-		ChessPiece[][] b = board.getBoard();
+	public boolean safeFromKnight(ChessPiece[][] b) {
+		//ChessPiece[][] b = board.getBoard();
 		int r=this.row;
 		int c=this.column;
 		r=this.row-2;
@@ -274,11 +274,11 @@ public class King extends ChessPiece{
 	 * 
 	 * @return True if the player's King is in check, false otherwise.
 	 */
-	public boolean isCheck() {
+	public boolean isCheck(ChessPiece[][] b) {
 		//safeFrom + all directions
 		//safeFromKnight
 		//&& all answers and return
-		return safeFromKnight()&&safeFrom(UP,NONE)&&safeFrom(UP,RIGHT)&&safeFrom(NONE,RIGHT)&&safeFrom(DOWN,RIGHT)&&safeFrom(DOWN,NONE)&&safeFrom(DOWN,LEFT)&&safeFrom(NONE,LEFT)&&safeFrom(UP,LEFT);
+		return !(safeFromKnight(b)&&safeFrom(UP,NONE,b)&&safeFrom(UP,RIGHT,b)&&safeFrom(NONE,RIGHT,b)&&safeFrom(DOWN,RIGHT,b)&&safeFrom(DOWN,NONE,b)&&safeFrom(DOWN,LEFT,b)&&safeFrom(NONE,LEFT,b)&&safeFrom(UP,LEFT,b));
 	}
 	
 	/**
