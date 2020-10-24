@@ -236,9 +236,16 @@ public abstract class ChessPiece {
 			toMove.row = allPossibleMoves.get(i)[0];
 			toMove.column = allPossibleMoves.get(i)[1];
 			temp2[toMove.row][toMove.column]=toMove;
-			if(!((King)(temp2[kingRow][kingColumn])).isCheck(temp2)) {
-				validMoves.add(allPossibleMoves.get(i));
+			if(!(toMove instanceof King)) {
+				if(!((King)(temp2[kingRow][kingColumn])).isCheck(temp2)) {
+					validMoves.add(allPossibleMoves.get(i));
+				}
+			}else {
+				if(!((King)(temp2[toMove.row][toMove.column])).isCheck(temp2)) {
+					validMoves.add(allPossibleMoves.get(i));
+				}
 			}
+			
 			/*
 			temp=this.board;
 			temp.remove(kingRow,kingColumn);

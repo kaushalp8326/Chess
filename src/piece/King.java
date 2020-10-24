@@ -150,6 +150,7 @@ public class King extends ChessPiece{
 		 * test each move in the moveset to make sure it doesn't put the king in check
 		 * remove the moves that are invalid
 		 */
+		/*
 		Board temp=this.board;
 		for(int i=0; i<moves.size(); i++) {
 			temp=this.board;
@@ -161,7 +162,8 @@ public class King extends ChessPiece{
 				i--;
 			}
 		}
-		
+		*/
+		moves=testMoves(moves);
 		return moves;
 	}
 	
