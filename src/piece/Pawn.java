@@ -167,6 +167,11 @@ public class Pawn extends ChessPiece {
 			}
 		}
 		
+		/*
+		 * test each move in the moveset to make sure it doesn't put the king in check
+		 * remove the moves that are invalid
+		 */
+		moves = testMoves(moves);
 		return moves;
 	}
 	

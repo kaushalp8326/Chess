@@ -75,6 +75,11 @@ public class Knight extends ChessPiece {
 			moves.add(new int[]{r,c});
 		}
 		
+		/*
+		 * test each move in the moveset to make sure it doesn't put the king in check
+		 * remove the moves that are invalid
+		 */
+		moves = testMoves(moves);
 		return moves;
 	}
 	

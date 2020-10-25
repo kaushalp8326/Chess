@@ -44,7 +44,11 @@ public class Chess {
 	 */
 	public static void main(String[] args) {
 		Board game=new Board();
-		game.setup();
+		//game.setup();
+		game.add(new Knight(3,7,WHITE));
+		game.add(new King(7,0,WHITE));
+		game.add(new King(0,4,BLACK));
+		game.add(new Queen(1,5,BLACK));
 		boolean gameEnd=false;
 		boolean drawRequest=false;
 		Scanner sc=new Scanner(System.in);
