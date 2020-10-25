@@ -114,6 +114,12 @@ public class Chess {
 				
 			}while(!executedMove);
 			
+			if(turn==WHITE) {
+				turn=BLACK;
+			}else {
+				turn=WHITE;
+			}
+			
 			ChessPiece[][] temp=new ChessPiece[8][8];
 			for(int i=0; i<8; i++) {
 				for(int j=0; j<8; j++) {
@@ -144,11 +150,6 @@ public class Chess {
 				System.out.println("Check");
 			}
 
-			if(turn==WHITE) {
-				turn=BLACK;
-			}else {
-				turn=WHITE;
-			}
 			System.out.println();
 		}
 		sc.close();
