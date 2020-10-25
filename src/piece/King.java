@@ -287,9 +287,40 @@ public class King extends ChessPiece{
 	 * 
 	 * @return True if the player has lost the game, false otherwise.
 	 */
-	public boolean isCheckmate() {
-		
-		return false;
+	public boolean isCheckmate(ChessPiece[][] b) {
+		//if the King is not in check, it is not checkmate either
+		if(!isCheck(b)) {
+			return false;
+		}
+		//See if any of this player's pieces can make a move that will not put the King in check
+		for(int i=0; i<8; i++) {
+			for(int j=0; j<8; j++) {
+				if(b[i][j]!=null) {
+					if(b[i][j].getTeam()==getTeam()) {
+						ChessPiece test;
+						if(b[this.row][this.column] instanceof Bishop) {
+							test=new Bishop(this.row, this.column, this.getTeam());
+						}else if(b[this.row][this.column] instanceof King) {
+							test=new King(this.row, this.column, this.getTeam());
+						}else if(b[this.row][this.column] instanceof Knight) {
+							test=new Knight(this.row, this.column, this.getTeam());
+						}else if(b[this.row][this.column] instanceof Pawn) {
+							test=new Pawn(this.row, this.column, this.getTeam());
+						}else if(b[this.row][this.column] instanceof Queen) {
+							test=new Queen(this.row, this.column, this.getTeam());
+						}else {
+							//Rook
+							test=new Rook(this.row, this.column, this.getTeam());
+						}
+						if(test.getValidMoves().size()!=0) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		//there are no possible valid moves, so checkmate
+		return true;
 	}
 	
 	/**

@@ -43,7 +43,6 @@ public class Chess {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		//TODO still need to check for the promotion input for pawns
 		Board game=new Board();
 		game.setup();
 		boolean gameEnd=false;
@@ -76,7 +75,6 @@ public class Chess {
 					System.out.print("Black's move: ");
 				}
 				String move=sc.nextLine();
-				//e2 e4 p
 				if(move.length()==7) {
 					promotionPotential=true;
 					promotion=move.substring(6);
@@ -116,7 +114,36 @@ public class Chess {
 				
 			}while(!executedMove);
 			
-			//TODO check for checkmate here? (after move has been made)
+			ChessPiece[][] temp=new ChessPiece[8][8];
+			for(int i=0; i<8; i++) {
+				for(int j=0; j<8; j++) {
+					temp[i][j]=b[i][j];
+				}
+			}
+			//find the King
+			int kingRow=0;
+			int kingColumn=0;
+			for(int i=0; i<8; i++) {
+				for(int j=0; j<8; j++) {
+					if(temp[i][j]!=null) {
+						if(temp[i][j] instanceof King && temp[i][j].getTeam()==turn) {
+							kingRow=i;
+							kingColumn=j;
+							break;
+						}
+					}
+				}
+			}
+			
+			if(((King)(temp[kingRow][kingColumn])).isCheckmate(temp)) {
+				System.out.println("Checkmate");
+				gameEnd=true;
+				resign(turn);
+			}
+			if(((King)(temp[kingRow][kingColumn])).isCheck(temp)) {
+				System.out.println("Check");
+			}
+
 			if(turn==WHITE) {
 				turn=BLACK;
 			}else {
