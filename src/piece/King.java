@@ -45,7 +45,7 @@ public class King extends ChessPiece{
 		}
 		
 		// If we're castling, move the appropriate Rook first
-		if(castleEligible) {
+		if(castleEligible && !isCheck(this.board.getBoard())) {
 			if(newRow == row && newColumn == 2) {
 				Rook rl = (Rook)(board.getBoard()[row][0]);
 				rl.move(3, row);
@@ -174,7 +174,6 @@ public class King extends ChessPiece{
 	 * @return If the King is put into check from a piece in this direction.
 	 */
 	public boolean safeFrom(IntFunction<Integer> rowDirection, IntFunction<Integer> colDirection, ChessPiece[][] b){
-		//ChessPiece[][] b = board.getBoard();
 		int r = this.row;
 		int c = this.column;
 		while(areValidCoordinates(rowDirection.apply(r), colDirection.apply(c))) {
@@ -289,9 +288,6 @@ public class King extends ChessPiece{
 	 */
 	public boolean isCheckmate(ChessPiece[][] b) {
 		//if the King is not in check, it is not checkmate either
-		if(!isCheck(b)) {
-			return false;
-		}
 		//See if any of this player's pieces can make a move that will not put the King in check
 		for(int i=0; i<8; i++) {
 			for(int j=0; j<8; j++) {

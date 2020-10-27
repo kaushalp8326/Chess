@@ -45,6 +45,7 @@ public class Chess {
 	public static void main(String[] args) {
 		Board game=new Board();
 		game.setup();
+		
 		boolean gameEnd=false;
 		boolean drawRequest=false;
 		Scanner sc=new Scanner(System.in);
@@ -143,13 +144,14 @@ public class Chess {
 				}
 			}
 			//TODO bug after here for input g5 e6
-			if(((King)(temp[kingRow][kingColumn])).isCheckmate(temp)) {
-				System.out.println("Checkmate");
-				gameEnd=true;
-				resign(turn);
-			}
 			if(((King)(temp[kingRow][kingColumn])).isCheck(temp)) {
-				System.out.println("Check");
+				if(((King)(temp[kingRow][kingColumn])).isCheckmate(temp)) {
+					System.out.println("Checkmate");
+					gameEnd=true;
+					resign(turn);
+				}else {
+					System.out.println("Check");
+				}
 			}
 
 			System.out.println();
