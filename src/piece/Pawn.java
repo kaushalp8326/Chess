@@ -20,9 +20,9 @@ public class Pawn extends ChessPiece {
 	
 	/**
 	 * Constructor for Pawn.
-	 * @param row
-	 * @param column
-	 * @param team
+	 * @param row Starting row/rank.
+	 * @param column Starting column/file.
+	 * @param team The piece's team. Should be either {@link #BLACK} or {@link #WHITE}.
 	 */
 	public Pawn(int row, int column, int team) {
 		super(row, column, team);
@@ -31,6 +31,12 @@ public class Pawn extends ChessPiece {
 	}
 
 	@Override
+	/**
+	 * Moves the Pawn. Includes special logic that allows for en passant.
+	 * @param newColumn The piece's column after the move.
+	 * @param newRow The piece's row after the move.
+	 * @return Returns a boolean value based on if the user has made a valid move.
+	 */
 	public boolean move(int newColumn, int newRow) {
 		// Check that the proposed move is in the valid moveset and contained in the
 		// chessboard's boundaries
@@ -86,6 +92,13 @@ public class Pawn extends ChessPiece {
 		return true;
 	}
 	
+	/**
+	 * Moves the Pawn. Includes special logic that allows for en passant and promotion.
+	 * @param newColumn The piece's column after the move.
+	 * @param newRow The piece's row after the move.
+	 * @param promote String representing the new class of the promoted pawn.
+	 * @return Returns a boolean value based on if the user has made a valid move.
+	 */
 	public boolean move(int newColumn, int newRow, String promote) {
 		if(newRow==7 || newRow==0) {
 			this.board.remove(this);

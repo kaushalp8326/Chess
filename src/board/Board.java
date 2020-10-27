@@ -49,7 +49,7 @@ public class Board {
 	
 	/**
 	 * Adds a chess piece to the board if its position is available.
-	 * @param cp - The chess piece being added.
+	 * @param cp The chess piece being added.
 	 * @return True or False, if the add was successful.
 	 */
 	public boolean add(ChessPiece cp) {
@@ -82,8 +82,8 @@ public class Board {
 	
 	/**
 	 * Removes a piece from the board via a coordinate pair.
-	 * @param row
-	 * @param col
+	 * @param row Row of the piece to be removed.
+	 * @param col Column of the piece to be removed.
 	 * @return True if a piece is deleted, false if the cell was already empty.
 	 */
 	public boolean remove(int row, int col) {
@@ -122,23 +122,7 @@ public class Board {
 		s += " a  b  c  d  e  f  g  h";
 		s += "\n";
 		return s;
-		/*
-		String s = "";
-		for(int row = 7; row >= 0; row--) {
-			for(int col = 0; col < 8; col++) {
-				if(board[row][col] != null) {
-					s += board[row][col].toString() + " ";
-				}else if((row + col) % 2 == 0) {
-					s += "## ";
-				}else {
-					s += "   ";
-				}
-			}
-			s += String.valueOf(row+1) + "\n";
-		}
-		s += " a  b  c  d  e  f  g  h";
-		return s;
-		*/
+
 	}
 	
 }

@@ -20,15 +20,21 @@ public class King extends ChessPiece{
 	
 	/**
 	 * Constructor for King.
-	 * @param row
-	 * @param column
-	 * @param team
+	 * @param row Starting row/rank.
+	 * @param column Starting column/file.
+	 * @param team The piece's team. Should be either {@link #BLACK} or {@link #WHITE}.
 	 */
 	public King(int row, int column, int team) {
 		super(row, column, team);
 		this.castleEligible = true;
 	}
 	
+	/**
+	 * Moves the King. Includes special logic that allows for castling.
+	 * @param newColumn The piece's column after the move.
+	 * @param newRow The piece's row after the move.
+	 * @return Returns a boolean value based on if the user has made a valid move.
+	 */
 	public boolean move(int newColumn, int newRow) {
 		// Check that the proposed move is in the valid moveset and contained in the
 		// chessboard's boundaries
@@ -150,27 +156,16 @@ public class King extends ChessPiece{
 		 * test each move in the moveset to make sure it doesn't put the king in check
 		 * remove the moves that are invalid
 		 */
-		/*
-		Board temp=this.board;
-		for(int i=0; i<moves.size(); i++) {
-			temp=this.board;
-			temp.remove(this.row,this.column);
-			King tempKing=new King(moves.get(i)[0], moves.get(i)[1], this.getTeam());
-			temp.add(tempKing);
-			if(tempKing.isCheck(temp.getBoard())) {
-				moves.remove(i);
-				i--;
-			}
-		}
-		*/
 		moves=testMoves(moves);
 		return moves;
 	}
 	
 	/**
-	 * 
-	 * @param rowDirection
-	 * @param colDirection
+	 * Iterates through spaces in a straight line away from the King to check if any pieces in that line can attack the King.
+	 * Should be used with all 8 possible combinations of rowDirection and colDirection to determine if a King is in check.
+	 * @param rowDirection IntFunction to represent row traversal. {@code r -> r--} for moving left, {@code r -> r++} for moving right.
+	 * @param colDirection IntFunction to represent column traversal. {@code c -> c--} for moving down, {@code c -> c++} for moving up.
+	 * @param b 8x8 {@link ChessPiece} matrix representing the current game state.
 	 * @return If the King is put into check from a piece in this direction.
 	 */
 	public boolean safeFrom(IntFunction<Integer> rowDirection, IntFunction<Integer> colDirection, ChessPiece[][] b){
@@ -204,7 +199,9 @@ public class King extends ChessPiece{
 	}
 	
 	/**
-	 * 
+	 * Determines if the King is vulnerable to attack from a Knight. This alternative to {@link safeFrom} is necessary because
+	 * Knights are the only piece that can attack a King from outside one of the 8 "primary" directions on the chessboard.
+	 * @param b 8x8 {@link ChessPiece} matrix representing the current game state.
 	 * @return If the King is put into check from a Knight in any direction.
 	 */
 	public boolean safeFromKnight(ChessPiece[][] b) {
@@ -272,7 +269,8 @@ public class King extends ChessPiece{
 	}
 	
 	/**
-	 * 
+	 * Determines if this King is in check.
+	 * @param b 8x8 {@link ChessPiece} matrix representing the current game state.
 	 * @return True if the player's King is in check, false otherwise.
 	 */
 	public boolean isCheck(ChessPiece[][] b) {
@@ -283,7 +281,8 @@ public class King extends ChessPiece{
 	}
 	
 	/**
-	 * 
+	 * Determines if the King is in checkmate.
+	 * @param b 8x8 {@link ChessPiece} matrix representing the current game state.
 	 * @return True if the player has lost the game, false otherwise.
 	 */
 	public boolean isCheckmate(ChessPiece[][] b) {

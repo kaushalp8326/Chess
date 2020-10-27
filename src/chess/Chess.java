@@ -40,7 +40,7 @@ public class Chess {
 		
 	/**
 	 * Main method to run game.
-	 * @param args
+	 * @param args Should be left empty.
 	 */
 	public static void main(String[] args) {
 		Board game=new Board();

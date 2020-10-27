@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class Bishop extends ChessPiece{
 	/**
 	 * Constructor for Bishop.
-	 * @param row
-	 * @param column
-	 * @param team
+	 * @param row Starting row/rank.
+	 * @param column Starting column/file.
+	 * @param team The piece's team. Should be either {@link #BLACK} or {@link #WHITE}.
 	 */
 	public Bishop(int row, int column, int team) {
 		super(row, column, team);

@@ -45,31 +45,31 @@ public abstract class ChessPiece {
 	protected Board board = new Board();
 	
 	/**
-	 * Directional moveset iterator. See documentation for getMovementLine().
+	 * Directional moveset iterator. See documentation for {@link #getMovementLine}.
 	 */
 	protected static final IntFunction<Integer> UP = r -> ++r;
 	/**
-	 * Directional moveset iterator. See documentation for getMovementLine().
+	 * Directional moveset iterator. See documentation for {@link #getMovementLine}.
 	 */
 	protected static final IntFunction<Integer> DOWN = r -> --r;
 	/**
-	 * Directional moveset iterator. See documentation for getMovementLine().
+	 * Directional moveset iterator. See documentation for {@link #getMovementLine}.
 	 */
 	protected static final IntFunction<Integer> LEFT = c -> --c;
 	/**
-	 * Directional moveset iterator. See documentation for getMovementLine().
+	 * Directional moveset iterator. See documentation for {@link #getMovementLine}.
 	 */
 	protected static final IntFunction<Integer> RIGHT = c -> ++c;
 	/**
-	 * Directional moveset iterator. See documentation for getMovementLine().
+	 * Directional moveset iterator. See documentation for {@link #getMovementLine}.
 	 */
 	protected static final IntFunction<Integer> NONE = i -> i;
 	
 	/**
 	 * Generic constructor that will be called whenever a new piece of any kind is made.
-	 * @param row
-	 * @param column
-	 * @param team
+	 * @param row Starting row/rank.
+	 * @param column Starting column/file.
+	 * @param team The piece's team. Should be either {@link #BLACK} or {@link #WHITE}.
 	 */
 	public ChessPiece(int row, int column, int team) {
 		this.row = row;
@@ -108,8 +108,8 @@ public abstract class ChessPiece {
 	
 	/**
 	 * Checks if a row-column pair falls within the bounds of the chess board.
-	 * @param row
-	 * @param col
+	 * @param row Row value of the proposed coordinate.
+	 * @param col Column value of the proposed coordinate.
 	 * @return True if the coordinates fall inside an 8x8 board, false otherwise.
 	 */
 	public static boolean areValidCoordinates(int row, int col) {
@@ -118,9 +118,9 @@ public abstract class ChessPiece {
 	
 	/**
 	 * Method for moving a piece based on a piece's unique way of generating a moveset.
-	 * !! IMPORTANT: THIS MUST BE OVERRIDEN FOR PAWN AND KING SINCE THEY HAVE EXTRA PROPERTIES TO CHANGE AFTER A MOVE !!
-	 * @param newColumn
-	 * @param newRow
+	 * IMPORTANT: THIS MUST BE OVERRIDEN FOR PAWN AND KING SINCE THEY HAVE EXTRA PROPERTIES TO CHANGE AFTER A MOVE!
+	 * @param newColumn The piece's column after the move.
+	 * @param newRow The piece's row after the move.
 	 * @return Returns a boolean value based on if the user has made a valid move.
 	 */
 	public boolean move(int newColumn, int newRow) {
@@ -151,8 +151,8 @@ public abstract class ChessPiece {
 	 * Iterate through one possible direction, or "line", of movement, starting from the piece's origin.
 	 * Keeps adding valid moves to the movement line until another piece or the edge of the board is encountered.
 	 * For use with pieces with movement "speed" limit only by the board: Rook, Bishop, Queen.
-	 * @param rowDirection - IntFunction to represent row traversal. r -> r-- for moving left, r -> r++ for moving right.
-	 * @param colDirection - IntFunction to represent column traversal. c -> c-- for moving down, c -> c++ for moving up.
+	 * @param rowDirection IntFunction to represent row traversal. {@code r -> r--} for moving left, {@code r -> r++} for moving right.
+	 * @param colDirection IntFunction to represent column traversal. {@code c -> c--} for moving down, {@code c -> c++} for moving up.
 	 * @return An ArrayList containing valid moveset coordinates. These should be combined with other directional iterations to generate the full moveset.
 	 */
 	public ArrayList<int[]> getMovementLine(IntFunction<Integer> rowDirection, IntFunction<Integer> colDirection){
@@ -178,9 +178,9 @@ public abstract class ChessPiece {
 	}
 	
 	/**
-	 * 
-	 * @param allPossibleMoves
-	 * @return moveset containing only valid moves that do not put the player's own King in check.
+	 * Filters a complete moveset so that only moves that do not put one's own King in check remain.
+	 * @param allPossibleMoves Full moveset of a piece. Should be generated using {@link getValidMoves()}.
+	 * @return Moveset containing only valid moves that do not put the player's own King in check.
 	 */
 	public ArrayList<int[]> testMoves(ArrayList<int[]> allPossibleMoves) {
 		if(allPossibleMoves.size()==0) {

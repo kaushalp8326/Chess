@@ -17,9 +17,9 @@ public class Rook extends ChessPiece{
 	
 	/**
 	 * Constructor for Rook.
-	 * @param row
-	 * @param column
-	 * @param team
+	 * @param row Starting row/rank.
+	 * @param column Starting column/file.
+	 * @param team The piece's team. Should be either {@link #BLACK} or {@link #WHITE}.
 	 */
 	public Rook(int row, int column, int team) {
 		super(row, column, team);
@@ -27,6 +27,12 @@ public class Rook extends ChessPiece{
 	}
 	
 	@Override
+	/**
+	 * Moves the Rook. Includes special logic that disallows a Rook to be involved in castling after it has moved.
+	 * @param newColumn The piece's column after the move.
+	 * @param newRow The piece's row after the move.
+	 * @return Returns a boolean value based on if the user has made a valid move.
+	 */
 	public boolean move(int newColumn, int newRow) {
 		boolean valid = super.move(newColumn, newRow);
 		if(valid) {
