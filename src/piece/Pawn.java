@@ -134,7 +134,7 @@ public class Pawn extends ChessPiece {
 		}
 		// If a pawn can't move forward 1, it can't move forward 2
 		r += direction;
-		if(firstMove && areValidCoordinates(r,c) && b[r+direction][c] == null && b[r][c] == null){
+		if(firstMove && areValidCoordinates(r,c) && b[r][c] == null){
 			moves.add(new int[]{r,c});
 		}
 		

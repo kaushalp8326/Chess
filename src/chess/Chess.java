@@ -44,11 +44,7 @@ public class Chess {
 	 */
 	public static void main(String[] args) {
 		Board game=new Board();
-		//game.setup();
-		game.add(new Knight(3,7,WHITE));
-		game.add(new King(7,0,WHITE));
-		game.add(new King(0,4,BLACK));
-		game.add(new Queen(1,5,BLACK));
+		game.setup();
 		boolean gameEnd=false;
 		boolean drawRequest=false;
 		Scanner sc=new Scanner(System.in);
@@ -139,12 +135,14 @@ public class Chess {
 						if(temp[i][j] instanceof King && temp[i][j].getTeam()==turn) {
 							kingRow=i;
 							kingColumn=j;
+							i=8;
+							j=8;
 							break;
 						}
 					}
 				}
 			}
-			
+			//TODO bug after here for input g5 e6
 			if(((King)(temp[kingRow][kingColumn])).isCheckmate(temp)) {
 				System.out.println("Checkmate");
 				gameEnd=true;
