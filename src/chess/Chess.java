@@ -26,8 +26,8 @@ public class Chess {
 	public static int turn=WHITE;
 	
 	/**
-	 * Method to end the game when a player resigns.
-	 * @param turn - whoever resigns on their turn loses the game.
+	 * Method to end the game when a player resigns or if the game ended after a checkmate.
+	 * @param turn - whoever resigns on their turn loses the game, or the turn of the player who has lost to a checkmate.
 	 */
 	public static void resign(int turn) {
 		if(turn==WHITE) {
