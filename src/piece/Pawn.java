@@ -126,7 +126,7 @@ public class Pawn extends ChessPiece {
 		}
 	}
 
-	public ArrayList<int[]> getValidMoves() {
+	public ArrayList<int[]> getAllMoves() {
 		
 		ArrayList<int[]> moves = new ArrayList<int[]>(4);
 		int direction;
@@ -180,11 +180,6 @@ public class Pawn extends ChessPiece {
 			}
 		}
 		
-		/*
-		 * test each move in the moveset to make sure it doesn't put the king in check
-		 * remove the moves that are invalid
-		 */
-		moves = testMoves(moves);
 		return moves;
 	}
 	

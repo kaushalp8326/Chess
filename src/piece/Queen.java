@@ -19,7 +19,7 @@ public class Queen extends ChessPiece{
 		super(row, column, team);
 	}
 
-	public ArrayList<int[]> getValidMoves() {
+	public ArrayList<int[]> getAllMoves() {
 		
 		ArrayList<int[]> moves = new ArrayList<int[]>();
 		
@@ -33,11 +33,6 @@ public class Queen extends ChessPiece{
 		moves.addAll(getMovementLine(NONE,LEFT));
 		moves.addAll(getMovementLine(UP,LEFT));
 		
-		/*
-		 * test each move in the moveset to make sure it doesn't put the king in check
-		 * remove the moves that are invalid
-		 */
-		moves = testMoves(moves);
 		return moves;
 	}
 	

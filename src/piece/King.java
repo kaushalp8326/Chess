@@ -1,6 +1,5 @@
 package piece;
 
-import board.*;
 import java.util.ArrayList;
 import java.util.function.IntFunction;
 
@@ -73,10 +72,7 @@ public class King extends ChessPiece{
 		return true;
 	}
 
-	public ArrayList<int[]> getValidMoves() {
-	
-		// TODO - None of this checks for whether the King puts himself in check. Still need to figure out how that will work
-		
+	public ArrayList<int[]> getAllMoves() {		
 		ArrayList<int[]> moves = new ArrayList<int[]>(8);
 		
 		// Check the 8 possible non-castling moves for the king, clockwise from 12 o'clock.
@@ -152,11 +148,6 @@ public class King extends ChessPiece{
 			}
 		}
 		
-		/*
-		 * test each move in the moveset to make sure it doesn't put the king in check
-		 * remove the moves that are invalid
-		 */
-		moves=testMoves(moves);
 		return moves;
 	}
 	
@@ -183,7 +174,7 @@ public class King extends ChessPiece{
 				//opposing teams piece in line with King
 				//make sure it can't attack King
 				ChessPiece target=b[r][c];
-				ArrayList<int[]> moves = target.getValidMoves();
+				ArrayList<int[]> moves = target.getAllMoves();
 				for(int i=0; i<moves.size(); i++) {
 					if(moves.get(i)[0]==this.row && moves.get(i)[1]==this.column) {
 						//the opposing teams piece can attack the King

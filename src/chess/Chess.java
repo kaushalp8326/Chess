@@ -44,18 +44,54 @@ public class Chess {
 	 */
 	public static void main(String[] args) {
 		Board game=new Board();
-		game.setup();
-		
+		//game.setup();
+		game.add(new King(1, 4, BLACK));
+		game.add(new King(7, 4, WHITE));
+		game.add(new Queen(0, 0, WHITE));
+		game.add(new Queen(2, 0, WHITE));
+		game.add(new Queen(7, 7, WHITE));
 		boolean gameEnd=false;
 		boolean drawRequest=false;
 		Scanner sc=new Scanner(System.in);
 		while(!gameEnd) {
-
 			System.out.println(game);
+			
+			ChessPiece[][] b = game.getBoard();
+			ChessPiece[][] temp=new ChessPiece[8][8];
+			for(int i=0; i<8; i++) {
+				for(int j=0; j<8; j++) {
+					temp[i][j]=b[i][j];
+				}
+			}
+			//find the King
+			int kingRow=0;
+			int kingColumn=0;
+			for(int i=0; i<8; i++) {
+				for(int j=0; j<8; j++) {
+					if(temp[i][j]!=null) {
+						if(temp[i][j] instanceof King && temp[i][j].getTeam()==turn) {
+							kingRow=i;
+							kingColumn=j;
+							i=8;
+							j=8;
+							break;
+						}
+					}
+				}
+			}
+
+			if(((King)(temp[kingRow][kingColumn])).isCheck(temp)) {
+				if(((King)(temp[kingRow][kingColumn])).isCheckmate(temp)) {
+					System.out.println("Checkmate");
+					gameEnd=true;
+					resign(turn);
+				}else {
+					System.out.println("Check");
+				}
+			}
 			
 			// Before any moves are made, all pawns on this team that were vulnerable to en passant
 			// capture are no longer vulnerable, since a complete turn has passed.
-			ChessPiece[][] b = game.getBoard();
 			for(int i = 0; i < 8; i++) {
 				for(int j = 0; j < 8; j++) {
 					if(b[i][j] instanceof Pawn && b[i][j].getTeam() == turn) {
@@ -97,7 +133,7 @@ public class Chess {
 				int initialColumn = move.charAt(0) - 'a';
 				int initialRow=8-Integer.parseInt(move.substring(1,2));
 				int newColumn = move.charAt(3) - 'a';
-				int newRow=8-Integer.parseInt(move.substring(4));
+				int newRow=8-Integer.parseInt(move.substring(4,5));
 				
 				// Execute move, if legal
 				ChessPiece p = game.getBoard()[initialRow][initialColumn];
@@ -119,39 +155,6 @@ public class Chess {
 				turn=BLACK;
 			}else {
 				turn=WHITE;
-			}
-			
-			ChessPiece[][] temp=new ChessPiece[8][8];
-			for(int i=0; i<8; i++) {
-				for(int j=0; j<8; j++) {
-					temp[i][j]=b[i][j];
-				}
-			}
-			//find the King
-			int kingRow=0;
-			int kingColumn=0;
-			for(int i=0; i<8; i++) {
-				for(int j=0; j<8; j++) {
-					if(temp[i][j]!=null) {
-						if(temp[i][j] instanceof King && temp[i][j].getTeam()==turn) {
-							kingRow=i;
-							kingColumn=j;
-							i=8;
-							j=8;
-							break;
-						}
-					}
-				}
-			}
-			//TODO bug after here for input g5 e6
-			if(((King)(temp[kingRow][kingColumn])).isCheck(temp)) {
-				if(((King)(temp[kingRow][kingColumn])).isCheckmate(temp)) {
-					System.out.println("Checkmate");
-					gameEnd=true;
-					resign(turn);
-				}else {
-					System.out.println("Check");
-				}
 			}
 
 			System.out.println();

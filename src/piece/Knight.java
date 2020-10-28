@@ -20,7 +20,7 @@ public class Knight extends ChessPiece {
 	}
 
 
-	public ArrayList<int[]> getValidMoves() {
+	public ArrayList<int[]> getAllMoves() {
 		
 		ArrayList<int[]> moves = new ArrayList<int[]>(8);
 		
@@ -75,11 +75,6 @@ public class Knight extends ChessPiece {
 			moves.add(new int[]{r,c});
 		}
 		
-		/*
-		 * test each move in the moveset to make sure it doesn't put the king in check
-		 * remove the moves that are invalid
-		 */
-		moves = testMoves(moves);
 		return moves;
 	}
 	

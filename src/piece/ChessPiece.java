@@ -254,9 +254,19 @@ public abstract class ChessPiece {
 		return validMoves;
 	}
 
+	public abstract ArrayList<int[]> getAllMoves();
+	
 	/**
 	 * Returns the set of valid moves available to a piece.
 	 * @return Returns an ArrayList of coordinate pairs, each representing a valid move.
 	 */
-	public abstract ArrayList<int[]> getValidMoves();
+	public ArrayList<int[]> getValidMoves(){
+		ArrayList<int[]> moves=getAllMoves();
+		/*
+		 * test each move in the moveset to make sure it doesn't put the king in check
+		 * remove the moves that are invalid
+		 */
+		moves=testMoves(moves);
+		return moves;
+	}
 }
