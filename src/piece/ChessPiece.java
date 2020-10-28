@@ -226,11 +226,24 @@ public abstract class ChessPiece {
 			toMove=new Rook(this.row, this.column, this.getTeam());
 		}
 		for(int i=0; i<allPossibleMoves.size(); i++) {
-			ChessPiece[][] temp2 = temp;
+			//ChessPiece[][] temp2 = temp;
+			ChessPiece[][] temp2=new ChessPiece[8][8];
+			for(int x=0; x<8; x++) {
+				for(int y=0; y<8; y++) {
+					temp2[x][y]=temp[x][y];
+				}
+			}
 			temp2[this.row][this.column]=null;
 			toMove.row = allPossibleMoves.get(i)[0];
 			toMove.column = allPossibleMoves.get(i)[1];
 			temp2[toMove.row][toMove.column]=toMove;
+			for(int x=0; x<8; x++) {
+				for(int y=0; y<8; y++) {
+					if(temp2[x][y]!=null) {
+						temp2[x][y].board.setBoard(temp2);
+					}
+				}
+			}
 			if(!(toMove instanceof King)) {
 				if(!((King)(temp2[kingRow][kingColumn])).isCheck(temp2)) {
 					validMoves.add(allPossibleMoves.get(i));

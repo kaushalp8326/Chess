@@ -47,6 +47,10 @@ public class Board {
 		board[7][7]=new Rook(7, 7, ChessPiece.WHITE);
 	}
 	
+	public void setBoard(ChessPiece[][] b) {
+		this.board=b;
+	}
+	
 	/**
 	 * Adds a chess piece to the board if its position is available.
 	 * @param cp The chess piece being added.
