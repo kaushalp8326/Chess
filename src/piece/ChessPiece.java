@@ -179,7 +179,7 @@ public abstract class ChessPiece {
 	
 	/**
 	 * Filters a complete moveset so that only moves that do not put one's own King in check remain.
-	 * @param allPossibleMoves Full moveset of a piece. Should be generated using {@link getValidMoves()}.
+	 * @param allPossibleMoves Full moveset of a piece. Should be generated using {@link getAllMoves()}.
 	 * @return Moveset containing only valid moves that do not put the player's own King in check.
 	 */
 	public ArrayList<int[]> testMoves(ArrayList<int[]> allPossibleMoves) {
@@ -203,6 +203,8 @@ public abstract class ChessPiece {
 					if(temp[i][j] instanceof King && temp[i][j].getTeam()==this.getTeam()) {
 						kingRow=i;
 						kingColumn=j;
+						i=8;
+						j=8;
 						break;
 					}
 				}
@@ -226,7 +228,6 @@ public abstract class ChessPiece {
 			toMove=new Rook(this.row, this.column, this.getTeam());
 		}
 		for(int i=0; i<allPossibleMoves.size(); i++) {
-			//ChessPiece[][] temp2 = temp;
 			ChessPiece[][] temp2=new ChessPiece[8][8];
 			for(int x=0; x<8; x++) {
 				for(int y=0; y<8; y++) {
@@ -267,6 +268,10 @@ public abstract class ChessPiece {
 		return validMoves;
 	}
 
+	/**
+	 * Returns all the possible moves available to a piece, without considering if they will put their own King in check.
+	 * @return Returns an ArrayList of coordinate pairs, each representing a possible move whether it is valid or not.
+	 */
 	public abstract ArrayList<int[]> getAllMoves();
 	
 	/**

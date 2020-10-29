@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"piece","l":"Bishop"},{"p":"board","l":"Board"},{"p":"chess","l":"Chess"},{"p":"piece","l":"ChessPiece"},{"p":"piece","l":"King"},{"p":"piece","l":"Knight"},{"p":"piece","l":"Pawn"},{"p":"piece","l":"Queen"},{"p":"piece","l":"Rook"}]
