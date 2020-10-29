@@ -124,7 +124,6 @@ public class Chess {
 					System.exit(0);
 				}
 				
-				drawRequest = false;
 				int initialColumn = move.charAt(0) - 'a';
 				int initialRow=8-Integer.parseInt(move.substring(1,2));
 				int newColumn = move.charAt(3) - 'a';
