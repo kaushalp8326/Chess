@@ -47,10 +47,6 @@ public class Board {
 		board[7][7]=new Rook(7, 7, ChessPiece.WHITE);
 	}
 	
-	/**
-	 * Setter method for the board field.
-	 * @param b A 2D array of ChessPiece objects that represents the new board.
-	 */
 	public void setBoard(ChessPiece[][] b) {
 		this.board=b;
 	}
